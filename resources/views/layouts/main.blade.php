@@ -96,9 +96,8 @@
     </div>
 </footer>
 
-
 {{-- Livewire Scripts --}}
-@livewireScripts
+{{-- @livewireScripts --}}
 </body>
 
 </html>
