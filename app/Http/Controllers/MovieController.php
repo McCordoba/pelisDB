@@ -71,7 +71,7 @@ class MovieController extends Controller
         $movieCredits = Http::get("https://api.themoviedb.org/3/movie/{$id}/credits?api_key=" . config('services.tmdb.token'))
             ->json();
 
-        dump($movieDetails);
+        //dump($movieDetails);
 
         // Filter crew to find directors
         $directors = collect($movieCredits['crew'])->filter(function ($crew) {
@@ -91,8 +91,21 @@ class MovieController extends Controller
         // Pass the movie details to the view
         return view('movieDetails.index', [
             'movieDetails' => $movieDetails,
-            'crew' => $crew,
+            'crew' => $crew
         ]);
+    }
+
+    public function fetchVideos($id)
+    {
+        // Fetch videos for the given movie ID using TMDB API
+        $response = Http::get("https://api.themoviedb.org/3/movie/{$id}/videos?api_key=" . config('services.tmdb.token'));
+
+        if ($response->ok()) {
+            $videos = $response->json()['results'];
+            return response()->json(['videos' => $videos]);
+        } else {
+            return response()->json(['error' => 'Failed to fetch videos'], 500);
+        }
     }
 
 

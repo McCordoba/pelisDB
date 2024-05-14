@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LikedMovieController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,3 +21,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/movie/like', [LikedMovieController::class, 'store']);
+
+
+

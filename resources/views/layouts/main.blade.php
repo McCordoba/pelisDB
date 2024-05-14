@@ -14,9 +14,13 @@
 
     {{-- Esto puede ser un array con una ruta para varios archivos --}}
     @vite('resources/js/script.js')
+    @vite('resources/js/trailerModal.js')
 
     {{-- Tailwind --}}
     @vite('resources/css/app.css')
+
+    {{-- My CSS --}}
+    @vite('resources/css/style.css')
 
     <title>@yield('title', 'PelisDB')</title>
 </head>

@@ -13,6 +13,8 @@ Route::get('/', [MovieController::class, 'index'])->name('index'); // This is th
 
 Route::get('/movies/{id}', [MovieController::class, 'show'])->name('movieDetails.index');
 
+Route::get('/movies/{id}/videos', [MovieController::class, 'fetchVideos'])->name('movies.videos');
+
 // Routes for the actors
 Route::get('actors', [ActorController::class, 'index'])->name('actors.index');
 Route::get('/actors/{id}', [ActorController::class, 'show'])->name('actors.showActor');

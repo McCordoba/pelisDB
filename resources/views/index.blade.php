@@ -15,9 +15,9 @@
                     <a href="{{ route('movieDetails.index', $movie['id']) }}" class="text-lg mt-2 hover:text-gray-300">{{ $movie['title'] }}</a>
                     <div class="flex items-center text-gray-400 text-sm mt-1">
                         <i class="fa-solid fa-star" style="color: #f97316;"></i>
-                        <span class="ml-1">{{ $movie['vote_average'] }}</span>
-                        <span class="mx-2">|</span>
-                        <span>{{ $movie['release_date'] }}</span>
+                        <span class="ml-1">{{ intval($movie['vote_average'] * 10) .'%' }}</span>
+                        <span class="mx-2"><i class="fa-solid fa-minus fa-rotate-90" style="color: #fff;"></i></span>
+                        <span>{{ date('Y', strtotime($movie['release_date'])) }}</span>
                     </div>
                     <div class="text-gray-400 text-sm">{{ $movie['genres'] }}
                     </div>
