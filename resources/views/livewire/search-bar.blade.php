@@ -18,7 +18,7 @@
                             @if ($result['poster_path'])
                                 <img src="https://image.tmdb.org/t/p/w92/{{ $result['poster_path'] }}" alt="poster" class="w-8">
                             @else
-                                <img src="https://via.placeholder.com/50x75" alt="poster" class="w-8">
+                                <img src="https://placehold.co/50x75" alt="poster" class="w-8">
                             @endif
                             <span class="ml-4">{{ $result['title'] }}</span>
                         </a>

@@ -13,7 +13,7 @@ class ActorController extends Controller
     public function index()
     {
         // Fetch popular actors known for movies from TMDb API
-        $actorsData = Http::get('https://api.themoviedb.org/3/person/popular?api_key='. config('services.tmdb.token'))->json()['results'];
+        $actorsData = Http::get('https://api.themoviedb.org/3/person/popular?api_key=' . config('services.tmdb.token'))->json()['results'];
 
         // Filter out actors known for TV shows
         $filteredActors = collect($actorsData)->map(function ($actor) {
@@ -54,17 +54,27 @@ class ActorController extends Controller
     public function show(string $id)
     {
         $actorDetails = Http::get("https://api.themoviedb.org/3/person/{$id}?api_key=" . config('services.tmdb.token'))
-        ->json();
+            ->json();
 
         $actorMovieCredits = Http::get("https://api.themoviedb.org/3/person/{$id}/movie_credits?api_key=" . config('services.tmdb.token'))
-        ->json();
+            ->json();
 
         dump($actorDetails);
         dump($actorMovieCredits);
 
+        // Extract the first 20 movies that the actor starred sorted by popularity
+        $movies = collect($actorMovieCredits['cast'])->take(20)->sortByDesc('popularity');
+
+        // Extract the directed movies and sort them by popularity
+        $directedMovies = collect($actorMovieCredits['crew'])->filter(function ($crew) {
+            return $crew['job'] === 'Director';
+        })->take(20)->sortByDesc('popularity');
+
         return view('actors.showActor', [
             'actorDetails' => $actorDetails,
             'actorMovieCredits' => $actorMovieCredits,
+            'movies' => $movies,
+            'directedMovies' => $directedMovies
         ]);
     }
 

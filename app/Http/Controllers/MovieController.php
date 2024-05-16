@@ -20,7 +20,7 @@ class MovieController extends Controller
         $genres = Http::get('https://api.themoviedb.org/3/genre/movie/list?api_key=' . config('services.tmdb.token'))
             ->json()['genres'];
 
-        dump($popularMovies);
+        // dump($popularMovies);
         // dump($genres);
 
         // Map genre IDs to their names for easier lookup
@@ -63,37 +63,43 @@ class MovieController extends Controller
     public function show(string $id)
     {
         // Fetch detailed information about the movie using the TMDB API
-        // By using double quotes, the value of $id will be properly substituted into the URL string.
         $movieDetails = Http::get("https://api.themoviedb.org/3/movie/{$id}?api_key=" . config('services.tmdb.token'))
             ->json();
 
-        // Fetch movie credits to get director
+        // Fetch movie credits
         $movieCredits = Http::get("https://api.themoviedb.org/3/movie/{$id}/credits?api_key=" . config('services.tmdb.token'))
             ->json();
-
-        //dump($movieDetails);
-
-        // Filter crew to find directors
-        $directors = collect($movieCredits['crew'])->filter(function ($crew) {
-            return $crew['job'] === 'Director';
-        })->pluck('name')->implode(', ');
 
         // Fetch genre names for the movie
         $genres = collect($movieDetails['genres'])->pluck('name')->implode(', ');
 
+        dump($movieDetails);
+
+        // Extract the directors IDs and names
+        $directors = collect($movieCredits['crew'])->filter(function ($crew) {
+            return $crew['job'] === 'Director';
+        })->map(function ($director) {
+            return ['id' => $director['id'], 'name' => $director['name']];
+        });
+
         // Extract the first 10 crew members
         $crew = collect($movieCredits['crew'])->take(10);
 
-        // Add genre names and director's name to the movie details
+        // Extract the first 10 cast members
+        $cast = collect($movieCredits['cast'])->take(10);
+
+        // Add genre names, directors IDs, and names to the movie details
         $movieDetails['genres'] = $genres;
         $movieDetails['directors'] = $directors;
 
         // Pass the movie details to the view
         return view('movieDetails.index', [
             'movieDetails' => $movieDetails,
-            'crew' => $crew
+            'crew' => $crew,
+            'cast' => $cast
         ]);
     }
+
 
     public function fetchVideos($id)
     {
