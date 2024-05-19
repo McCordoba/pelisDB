@@ -1,7 +1,7 @@
 :root {
   --principal: #2ec4b6;
   --secondary: #cbf3f0;
-  --background: #1c1917;
+  --background: #14181c;
   --background-contrast: #efefef;
   --hover: #ffbf69;
   --contrast: #f97316;
@@ -36,6 +36,44 @@ a {
 
 a:hover {
   color: #00e054;
+}
+
+.link {
+  color: #fff;
+}
+
+.link:hover {
+  color: #00e054;
+}
+
+/* USERS */
+.logOut {
+  color: #111827;
+  background-color: #9ca3af;
+}
+
+.logOut:hover {
+  color: #111827;
+  background-color: #e74c3c;
+}
+
+.movieLog {
+  color: #111827;
+}
+
+.movieLog:hover {
+  color: #111827;
+}
+
+/* MODALS */
+.closeBtn {
+  color: #fff;
+  background-color: inherit;
+}
+
+.closeBtn:hover {
+  color: #9ca3af;
+  background-color: inherit;
 }
 
 #modal {

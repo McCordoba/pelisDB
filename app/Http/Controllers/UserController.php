@@ -45,7 +45,13 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Fetch the user or fail if not found
+        $user = User::findOrFail($id);
+
+        return view('users.show', [
+            'user' => $user
+        ]);
+
     }
 
     /**

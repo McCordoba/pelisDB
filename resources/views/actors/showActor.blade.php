@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="movie-info border-b border-gray-500">
+    <div class="actor-info border-b border-gray-500">
         <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
             <div class="flex-none">
                 @if ($actorDetails['profile_path'])
@@ -13,7 +13,9 @@
 
             <div class="md:ml-24">
                 <h2 class="text-4xl mt-4 md:mt-0 font-semibold">{{ $actorDetails['name'] }}</h2>
-                <div class="flex flex-wrap items-center text-gray-400 text-sm"></div>
+                <div class="flex flex-wrap items-center text-gray-400 text-sm">
+                    data
+                </div>
 
                 <h3 class="text-white py-2 font-semibold">Biography</h3>
                 @if ($actorDetails['biography'])
@@ -44,7 +46,9 @@
                             </a>
                             <div class="mt-2">
                                 <a href="{{ route('movieDetails.index', $movie['id']) }}" class="text-lg mt-2 hover:text-gray:300">{{ $movie['title'] }} ({{ date('Y', strtotime($movie['release_date'])) }})</a>
-                                <div class="text-sm text-gray-400"><span>As {{ $movie['character'] }}</span></div>
+                                <div class="text-sm text-gray-400">
+                                    <span>As {{ $movie['character'] }}</span>
+                                </div>
                             </div>
                         </div>
                     @endforeach

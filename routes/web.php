@@ -34,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
     // Using the method resource() laravel automatically generates the necessary routes for common CRUD operations
     // Route::resource('likedMovies', LikedMovieController::class);
     Route::resource('users', UserController::class);
+    Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

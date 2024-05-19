@@ -25,7 +25,8 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('users');
+            // intended() tries to redirect to the URL the user was trying to access before being redirected to the login page
+            return redirect()->intended();
         }
 
         return back()->withErrors([

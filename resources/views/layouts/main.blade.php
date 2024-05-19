@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    {{-- boxicons --}}
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
     {{-- fontawesome --}}
     <script src="https://kit.fontawesome.com/5f361d4fee.js" crossorigin="anonymous"></script>
 
@@ -18,9 +15,9 @@
 </head>
 
 <body class="font-sans">
-<nav class="border-b border-gray-500">
+<nav class="border-b border-gray-500 font-semibold">
     <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between py-6">
-        <ul class="flex flex-col font-bold md:flex-row items-center">
+        <ul class="flex flex-col md:flex-row items-center">
             <li>
                 <a href="{{ route('index') }}">
                     <img src="/img/PelisDB_logo_white.png" width="200" alt="PelisBD Logo">
@@ -41,16 +38,12 @@
             @guest
                 {{-- LOGIN --}}
                 <div class="md:ml-4 mt-3 md:mt-0">
-                    <a href="{{ route('login') }}">
-                        Login
-                    </a>
+                    <a href="{{ route('login') }}" class="hover:text-gray-300">Login</a>
                 </div>
 
                 {{-- REGISTER --}}
                 <div class="md:ml-4 mt-3 md:mt-0">
-                    <a href="{{ route('register') }}">
-                        Create account
-                    </a>
+                    <a href="{{ route('register') }}" class="hover:text-gray-300">Create account</a>
                 </div>
             @endguest
 
@@ -58,16 +51,19 @@
             @auth
                 {{-- USER ICON --}}
                 <div class="md:ml-4 mt-3 md:mt-0">
-                    <a href="#">
+                    <a href="{{ route('users.show', auth()->user()->id) }}">
                         {{-- <img src="" alt="avatar" class="rounded-full w-8 h-8"> --}}
-                        <i class='bx bx-user-circle bx-lg' style='color:#ffffff'></i>
+                       <i class="fa-regular fa-circle-user fa-2xl" style="color: #ffffff;"></i>
                     </a>
                 </div>
 
                 {{-- LOG OUT --}}
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="ml-4 text-white">Logout</button>
+                    <button type="submit" class="logOut ml-4 flex items-center rounded w-20 h-12 justify-center transition ease-in-out duration-150">
+                        <i class="fa-solid fa-power-off"></i>
+                        <span class="ml-2">Logout</span>
+                    </button>
                 </form>
             @endauth
         </div>
@@ -78,7 +74,7 @@
     @yield('content')
 </div>
 
-<footer class="border border-t border-gray-500">
+<footer class="border-t border-t-gray-500">
     <div class="container mx-auto text-sm font-bold px-4 py-6">
         <ul class="flex flex-col md:flex-row items-center">
             <li class="md:ml-6 mt-3 md:mt-0">
@@ -102,8 +98,6 @@
     </div>
 </footer>
 
-{{-- Livewire Scripts --}}
-{{-- @livewireScripts --}}
 </body>
 
 </html>

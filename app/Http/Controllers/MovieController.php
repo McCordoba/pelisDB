@@ -73,7 +73,7 @@ class MovieController extends Controller
         // Fetch genre names for the movie
         $genres = collect($movieDetails['genres'])->pluck('name')->implode(', ');
 
-        dump($movieDetails);
+        // dump($movieDetails);
 
         // Extract the directors IDs and names
         $directors = collect($movieCredits['crew'])->filter(function ($crew) {
