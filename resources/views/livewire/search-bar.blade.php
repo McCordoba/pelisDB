@@ -9,7 +9,7 @@
     </div>
 
     @if (strlen($search) >= 2)
-        <div class="absolute bg-gray-800 text-sm rounded w-64 mt-4">
+        <div class="absolute bg-gray-500 text-sm rounded w-64 mt-4">
             @if ($searchResults->count() > 0)
                 <ul>
                     @foreach ($searchResults as $result)
@@ -24,7 +24,6 @@
                         </a>
                         </li>
                     @endforeach
-
                 </ul>
             @else
                 <div class="px-3 py-3">No results for "{{ $search }}"</div>

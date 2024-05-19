@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <div class="movie-info border-b border-gray-800">
+    <div class="movie-info border-b border-gray-500">
         <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
             <div class="flex-none">
                 <img src="https://image.tmdb.org/t/p/w500{{ $movieDetails['poster_path'] }}"
@@ -13,7 +13,7 @@
                 <h2 class="text-4xl mt-4 md:mt-0 font-semibold">{{ $movieDetails['title'] }}</h2>
                 <h1 class="mt-4 md:mt-0 font-semibold text-gray-400">Original title: {{ $movieDetails['original_title'] }}</h1>
                 <div class="flex flex-wrap items-center text-gray-400 text-sm">
-                    <i class="fa-solid fa-star" style="color: #f97316;"></i>
+                    <i class="fa-solid fa-star" style="color: #00e054;"></i>
                     <span class="ml-1">{{ intval($movieDetails['vote_average'] * 10) .'%' }}</span>
                     <span class="mx-2"><i class="fa-solid fa-minus fa-rotate-90" style="color: #fff;"></i></span>
                     <span>{{ date('Y', strtotime($movieDetails['release_date'])) }}</span>
@@ -26,8 +26,7 @@
                 <p class="text-gray-300 mt-8">
                     Directed by
                     @foreach($movieDetails['directors'] as $director)
-                        <b><a class="hover:text-orange-600"
-                              href="{{ route('actors.showActor', $director['id']) }}">{{ $director['name'] }}</a></b>
+                        <b><a href="{{ route('actors.showActor', $director['id']) }}">{{ $director['name'] }}</a></b>
                         @if (!$loop->last)
                             ,
                         @endif
@@ -41,7 +40,7 @@
                 {{-- Button to open the modal with a trailer--}}
                 <div class="mt-12">
                     <button id="playTrailerBtn"
-                            class="flex items-center bg-orange-500 text-gray-900 rounded font-semibold px-5 py-4 hover:bg-orange-600 transition ease-in-out duration-150"
+                            class="flex items-center rounded font-semibold px-5 py-4 transition ease-in-out duration-150"
                             data-movie-id="{{ $movieDetails['id'] }}">
                         <svg class="w-6 fill-current" viewBox="0 0 24 24">
                             <path d="M0 0h24v24H0z" fill="none"/>
@@ -70,30 +69,30 @@
         </div>
     </div>
 
-    <div class="movie-cast border-b border-gray-800">
+    <div class="movie-cast border-b border-gray-500">
         <div class="container mx-auto px-4 py-16">
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
                 <button
-                        class="flex items-center bg-orange-500 text-gray-900 rounded font-semibold px-5 py-4 hover:bg-orange-600 transition ease-in-out duration-150">
+                        class="flex items-center rounded font-semibold px-5 py-4 transition ease-in-out duration-150">
                     <i class="fa-regular fa-eye"></i>
                     <span class="ml-2">Watch</span>
                 </button>
 
                 <button
-                        class="flex items-center bg-orange-500 text-gray-900 rounded font-semibold px-5 py-4 hover:bg-orange-600 transition ease-in-out duration-150">
+                        class="flex items-center rounded font-semibold px-5 py-4 transition ease-in-out duration-150">
                     <i class="fa-regular fa-heart"></i>
                     <span class="ml-2">Like</span>
                 </button>
 
                 <button
-                        class="flex items-center bg-orange-500 text-gray-900 rounded font-semibold px-5 py-4 hover:bg-orange-600 transition ease-in-out duration-150">
+                        class="flex items-center rounded font-semibold px-5 py-4 transition ease-in-out duration-150">
                     <i class="fa-regular fa-clock"></i>
                     <span class="ml-2">Watchlist</span>
                 </button>
 
                 <button
-                        class="flex items-center bg-orange-500 text-gray-900 rounded font-semibold px-5 py-4 hover:bg-orange-600 transition ease-in-out duration-150">
+                        class="flex items-center rounded font-semibold px-5 py-4 transition ease-in-out duration-150">
                     <i class="fa-regular fa-message"></i>
                     <span class="ml-2">Review</span>
                 </button>
@@ -101,7 +100,7 @@
                 {{-- TODO INSIDE THE MODAL REVIEW
                     Will be a form to put the text and a option to rate it --}}
                 <button
-                        class="flex items-center bg-orange-500 text-gray-900 rounded font-semibold px-5 py-4 hover:bg-orange-600 transition ease-in-out duration-150">
+                        class="flex items-center rounded font-semibold px-5 py-4 transition ease-in-out duration-150">
                     <i class="fa-regular fa-star"></i>
                     <span class="ml-2">Rate</span>
                 </button>

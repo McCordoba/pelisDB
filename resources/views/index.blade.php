@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">Popular Movies</h2>
+<h2 class="uppercase tracking-wider text-lg font-semibold" style="color: #00e054;"">Popular Movies</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
         @foreach ($popularMovies as $movie)
             <div class="mt-8">
@@ -14,7 +14,7 @@
                 <div class="mt-2">
                     <a href="{{ route('movieDetails.index', $movie['id']) }}" class="text-lg mt-2 hover:text-gray-300">{{ $movie['title'] }}</a>
                     <div class="flex items-center text-gray-400 text-sm mt-1">
-                        <i class="fa-solid fa-star" style="color: #f97316;"></i>
+                        <i class="fa-solid fa-star" style="color: #00e054;"></i>
                         <span class="ml-1">{{ intval($movie['vote_average'] * 10) .'%' }}</span>
                         <span class="mx-2"><i class="fa-solid fa-minus fa-rotate-90" style="color: #fff;"></i></span>
                         <span>{{ date('Y', strtotime($movie['release_date'])) }}</span>

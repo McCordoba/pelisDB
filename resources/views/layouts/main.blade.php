@@ -12,27 +12,18 @@
     {{-- fontawesome --}}
     <script src="https://kit.fontawesome.com/5f361d4fee.js" crossorigin="anonymous"></script>
 
-    {{-- Esto puede ser un array con una ruta para varios archivos --}}
-    @vite('resources/js/script.js')
-    @vite('resources/js/trailerModal.js')
-
-    {{-- Tailwind --}}
-    @vite('resources/css/app.css')
-
-    {{-- My CSS --}}
-    @vite('resources/css/style.css')
+    @vite(['resources/js/script.js', 'resources/js/trailerModal.js', 'resources/css/app.css', 'resources/css/style.css'])
 
     <title>@yield('title', 'PelisDB')</title>
 </head>
 
-<body class="font-sans bg-gray-900 text-white">
-<nav class="border-b border-gray-800">
+<body class="font-sans">
+<nav class="border-b border-gray-500">
     <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between py-6">
         <ul class="flex flex-col font-bold md:flex-row items-center">
             <li>
                 <a href="{{ route('index') }}">
                     <img src="/img/PelisDB_logo_white.png" width="200" alt="PelisBD Logo">
-
             </li>
             <li class="md:ml-16 mt-3 md:mt-0">
                 <a href="{{ route('index') }}" class="hover:text-gray-300">Movies</a>
@@ -44,29 +35,41 @@
         <div class="flex flex-col md:flex-row items-center">
 
             {{-- SEARCH BAR --}}
-            <livewire:search-bar />
+            <livewire:search-bar/>
 
-            {{-- USER ICON --}}
-            <div class="md:ml-4 mt-3 md:mt-0">
-                <a href="#">
-                    {{-- <img src="" alt="avatar" class="rounded-full w-8 h-8"> --}}
-                    <i class='bx bx-user-circle bx-lg' style='color:#ffffff' ></i>
-                </a>
-            </div>
+            <!-- Check if the user is NOT authenticated -->
+            @guest
+                {{-- LOGIN --}}
+                <div class="md:ml-4 mt-3 md:mt-0">
+                    <a href="{{ route('login') }}">
+                        Login
+                    </a>
+                </div>
 
-            {{-- LOGIN --}}
-            <div class="md:ml-4 mt-3 md:mt-0">
-                <a href="#">
-                   Login
-                </a>
-            </div>
+                {{-- REGISTER --}}
+                <div class="md:ml-4 mt-3 md:mt-0">
+                    <a href="{{ route('register') }}">
+                        Create account
+                    </a>
+                </div>
+            @endguest
 
-            {{-- REGISTER --}}
-            <div class="md:ml-4 mt-3 md:mt-0">
-                <a href="#">
-                   Create account
-                </a>
-            </div>
+            <!-- Check if the user is authenticated -->
+            @auth
+                {{-- USER ICON --}}
+                <div class="md:ml-4 mt-3 md:mt-0">
+                    <a href="#">
+                        {{-- <img src="" alt="avatar" class="rounded-full w-8 h-8"> --}}
+                        <i class='bx bx-user-circle bx-lg' style='color:#ffffff'></i>
+                    </a>
+                </div>
+
+                {{-- LOG OUT --}}
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="ml-4 text-white">Logout</button>
+                </form>
+            @endauth
         </div>
     </div>
 </nav>
@@ -75,8 +78,7 @@
     @yield('content')
 </div>
 
-<footer class="border border-t border-gray-800">
-
+<footer class="border border-t border-gray-500">
     <div class="container mx-auto text-sm font-bold px-4 py-6">
         <ul class="flex flex-col md:flex-row items-center">
             <li class="md:ml-6 mt-3 md:mt-0">

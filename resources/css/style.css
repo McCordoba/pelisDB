@@ -1,3 +1,43 @@
+:root {
+  --principal: #2ec4b6;
+  --secondary: #cbf3f0;
+  --background: #1c1917;
+  --background-contrast: #efefef;
+  --hover: #ffbf69;
+  --contrast: #f97316;
+
+  --one: #219ce3;
+  --two: #4bc02f;
+  --three: #ee7000;
+  --four: #9ca3af;
+
+  --success-color: #2ecc71;
+  --error-color: #e74c3c;
+}
+
+body {
+  background-color: #14181c;
+  color: #fff;
+}
+
+button {
+  color: #111827;
+  background-color: #9ca3af;
+}
+
+button:hover {
+  color: #111827;
+  background-color: #00e054;
+}
+
+a {
+  color: #fff;
+}
+
+a:hover {
+  color: #00e054;
+}
+
 #modal {
-    display: none;
-  }
+  display: none;
+}

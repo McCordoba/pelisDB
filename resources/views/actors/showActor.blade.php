@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="movie-info border-b border-gray-800">
+    <div class="movie-info border-b border-gray-500">
         <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
             <div class="flex-none">
                 @if ($actorDetails['profile_path'])
@@ -28,7 +28,7 @@
     </div>
 
     @if ($actorMovieCredits['cast'] > 0)
-        <div class="movie-cast border-b border-gray-800">
+        <div class="movie-cast border-b border-gray-500">
             <div class="container mx-auto px-4 py-16">
                 <h3 class="text-2xl font-semibold">FILMS STARRING</h3>
                 <h4 class="text-2xl font-semibold">{{ $actorDetails['name'] }}</h4>
