@@ -52,8 +52,11 @@
                 {{-- USER ICON --}}
                 <div class="md:ml-4 mt-3 md:mt-0">
                     <a href="{{ route('users.show', auth()->user()->id) }}">
-                        {{-- <img src="" alt="avatar" class="rounded-full w-8 h-8"> --}}
-                       <i class="fa-regular fa-circle-user fa-2xl" style="color: #ffffff;"></i>
+                        @if ($user->image)
+                            <img src="{{ asset('storage/' . $user->image) }}" alt="avatar" class="rounded-full w-12 h-12">
+                        @else
+                            <i class="fa-regular fa-circle-user fa-2xl" style="color: #ffffff;"></i>
+                        @endif
                     </a>
                 </div>
 

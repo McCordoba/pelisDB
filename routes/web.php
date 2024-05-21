@@ -35,6 +35,11 @@ Route::middleware(['auth'])->group(function () {
     // Route::resource('likedMovies', LikedMovieController::class);
     Route::resource('users', UserController::class);
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
+    // Route::get('/users/edit', [UserController::class, 'edit'])->name('user.edit');
+
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+
+    Route::post('/users/update', [UserController::class, 'update'])->name('users.update');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

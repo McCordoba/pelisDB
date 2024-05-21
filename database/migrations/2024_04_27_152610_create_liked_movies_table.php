@@ -18,13 +18,10 @@ return new class extends Migration {
                 ->constrained('users')
                 ->cascadeOnDelete();
 
-            // TODO AÑADIR LA ID DE LAS PELIS EN TODAS LAS TABLAS MENOS LAS DE USUARIOS Y ADMINISTRADORES
-
             // Id of the movie fetched from the API tmdb
             $table->integer('movie_id');
 
             // Title of the movie
-            // NOTE I don't know if to include this
             $table->string('title');
 
             $table->timestamps();

@@ -12,7 +12,7 @@
                              alt="{{ $actor['name'] }}"
                              class="w-full h-auto mb-2 hover:opacity-75 transition ease-in-out duration-150">
                     @else
-                        <img src="https://via.placeholder.com/500x750" alt="poster" class="w-8">
+                        <img src="https://via.placeholder.com/500x750" alt="poster" class="w-64 lg:w-96">
                     @endif
                 </a>
                 <div class="mt-2">

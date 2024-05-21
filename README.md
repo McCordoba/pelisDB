@@ -16,9 +16,34 @@ Además, se implementará una sección de acceso exclusivo para los administrado
 
 - Front-end
 
+  - HTML
+  - CSS
+  - Tailwind (css)
+  - JavaScript
+
 - Back-end
 
-# Diagrama E/R
+  - Laravel Blade y Liveware
+  - MySQL
+  - API themoviedb
+
+- Librerías
+
+  - Font Awesome
+  - Hero icons
+
+- Para realizar el despliegue
+
+  - OVHcloud (hosting)
+
+- Control de versiones y otras utilidades
+  - Docker
+  - GitHub
+  - Inkscape
+
+# Tablas de la Base de datos
+
+# Diagrama E/R de la base de datos
 
 # Diseño físico de la base de datos
 
@@ -29,13 +54,17 @@ Además, se implementará una sección de acceso exclusivo para los administrado
 - Los usuarios sin cuenta pueden buscar información sobre películas.
 - Las reseñas siempre deberán contener texto, y opcionalmente, una calificación.
 
+# Diseño de la página web
+
 # Bibliografía
 
 - [Documentación de Laravel](https://laravel.com/docs/11.x).
 - [Documentación de la API TMDB](https://developer.themoviedb.org/docs/getting-started).
 - [Documentación de Tailwind CSS](https://tailwindcss.com/docs/installation).
+- [Documentación de Livewire](https://livewire.laravel.com/docs/quickstart).
+- [Documentación de Font Awesome](https://docs.fontawesome.com/).
 
 ## Licencias de uso
 
-- [The Movie Database](https://www.themoviedb.org).
+- [The Movie Database](https://www.themoviedb.org/api-terms-of-use).
 - [Font Awesome](https://fontawesome.com/license/free).

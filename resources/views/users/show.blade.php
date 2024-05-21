@@ -5,8 +5,16 @@
     <div class="user-info border-b border-gray-500">
         <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
 
-            <div class="flex-none">
-                <img src="https://placehold.co/200x200" alt="avatar" class="rounded-full w-64 h-64">
+            <div class="flex-none flex flex-col items-center">
+                @if ($user->image)
+                    <img src="{{ asset('storage/' . $user->image) }}" alt="avatar" class="rounded-full w-64 h-64">
+                @else
+                    <img src="https://placehold.co/200x200" alt="avatar" class="rounded-full w-64 h-64">
+                @endif
+
+                <div class="mt-4">
+                    <a href="{{ route('users.edit', auth()->user()->id) }}"><span>Edit user data</span></a>
+                </div>
             </div>
 
             <div class="md:ml-24">
@@ -58,5 +66,3 @@
     </div>
 
 @endsection
-
-
