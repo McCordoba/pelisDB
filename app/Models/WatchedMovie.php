@@ -11,7 +11,11 @@ class WatchedMovie extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'title', 'movie_id'
+        'user_id',
+        'movie_id',
+        'title',
+        'release_date',
+        'poster_path',
     ];
 
     // Cast timeStamp to datetime

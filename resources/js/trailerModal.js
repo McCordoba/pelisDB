@@ -1,6 +1,7 @@
-let modal = document.getElementById("modal");
-let closeBtn = document.getElementById("closeBtn");
-let iframe = document.getElementById("iframe");
+const modal = document.getElementById("modalTrailer");
+const closeBtn = document.getElementById("closeBtnMT");
+const iframe = document.getElementById("iframe");
+const playTrailerButton = document.getElementById("playTrailerBtn");
 
 // Function to open the modal with the video
 function openModal(videoKey) {
@@ -15,7 +16,7 @@ function closeModal() {
   iframe.src = "";
 }
 
-let playTrailerButton = document.getElementById("playTrailerBtn");
+// Sends a request when the "Play Trailer" button is clicked
 playTrailerButton.addEventListener("click", function () {
   let movieId = this.dataset.movieId;
   console.log(movieId);
@@ -41,6 +42,7 @@ playTrailerButton.addEventListener("click", function () {
     });
 });
 
+// Close the modal if user clicks on the modal "X" button
 closeBtn.addEventListener("click", function () {
   closeModal();
 });

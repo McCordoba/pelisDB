@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- fontawesome --}}
     <script src="https://kit.fontawesome.com/5f361d4fee.js" crossorigin="anonymous"></script>
 
-    @vite(['resources/js/script.js', 'resources/js/trailerModal.js', 'resources/css/app.css', 'resources/css/style.css'])
+    @vite(['resources/js/script.js', 'resources/js/trailerModal.js', 'resources/js/buttons.js', 'resources/css/app.css', 'resources/css/style.css'])
 
     <title>@yield('title', 'PelisDB')</title>
 </head>
@@ -53,7 +54,8 @@
                 <div class="md:ml-4 mt-3 md:mt-0">
                     <a href="{{ route('users.show', auth()->user()->id) }}">
                         @if ($user->image)
-                            <img src="{{ asset('storage/' . $user->image) }}" alt="avatar" class="rounded-full w-12 h-12">
+                            <img src="{{ asset('storage/' . $user->image) }}" alt="avatar"
+                                 class="rounded-full w-12 h-12">
                         @else
                             <i class="fa-regular fa-circle-user fa-2xl" style="color: #ffffff;"></i>
                         @endif
@@ -63,7 +65,8 @@
                 {{-- LOG OUT --}}
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="logOut ml-4 flex items-center rounded w-20 h-12 justify-center transition ease-in-out duration-150">
+                    <button type="submit"
+                            class="logOut ml-4 flex items-center rounded w-20 h-12 justify-center transition ease-in-out duration-150">
                         <i class="fa-solid fa-power-off"></i>
                         <span class="ml-2">Logout</span>
                     </button>

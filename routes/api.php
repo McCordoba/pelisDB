@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LikedMovieController;
+// use App\Http\Controllers\LikedMovieController;
 
 
 /*
@@ -20,7 +20,9 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/movie/like', [LikedMovieController::class, 'store']);
+// Route::post('/movie/like', [LikedMovieController::class, 'store']);
+
+// Route::resource('likedMovies', LikedMovieController::class);
 
 
 

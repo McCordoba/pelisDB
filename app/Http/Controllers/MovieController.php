@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 
 class MovieController extends Controller
 {
@@ -73,7 +74,7 @@ class MovieController extends Controller
         // Fetch genre names for the movie
         $genres = collect($movieDetails['genres'])->pluck('name')->implode(', ');
 
-        // dump($movieDetails);
+        //dump($movieDetails);
 
         // Extract the directors IDs and names
         $directors = collect($movieCredits['crew'])->filter(function ($crew) {
@@ -91,6 +92,22 @@ class MovieController extends Controller
         // Add genre names, directors IDs, and names to the movie details
         $movieDetails['genres'] = $genres;
         $movieDetails['directors'] = $directors;
+
+        // Check if the movie is liked by the current user
+        $movieDetails['liked'] = Auth::check() ? Auth::user()->likedMovies()->where('movie_id', $id)->exists() : false;
+
+        // Check if the movie is whatched by the current user
+        $movieDetails['whatched'] = Auth::check() ? Auth::user()->watchedMovies()->where('movie_id', $id)->exists() : false;
+
+        // Check if the movie is on a whatchlist by the current user
+        $movieDetails['listed'] = Auth::check() ? Auth::user()->watchlist()->where('movie_id', $id)->exists() : false;
+
+        // Check if the movie has been reviewed by the current user
+        $movieDetails['reviewed'] = Auth::check() ? Auth::user()->reviews()->where('movie_id', $id)->exists() : false;
+
+        // Check if the movie has been reviewed by the current user
+        $movieDetails['rated'] = Auth::check() ? Auth::user()->reviews()->where('movie_id', $id)->exists() : false;
+
 
         // Pass the movie details to the view
         return view('movieDetails.index', [

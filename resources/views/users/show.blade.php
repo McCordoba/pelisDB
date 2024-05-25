@@ -51,18 +51,19 @@
         {{-- The last 20 liked movies of the user --}}
         <h3 class="text-2xl font-semibold">Liked movies</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-            {{-- @foreach ($movies as $movie) --}}
-            <div class="mt-8">
-                <a href="#">
-                    <img src="https://placehold.co/300x450"
-                         class="hover:opacity-75 transition ease-in-out duration-150" alt="movie">
-                </a>
-                <div class="mt-2">
-                    <a href="#" class="text-lg mt-2 hover:text-gray:300">Movie (year)</a>
+
+            @foreach($likedMovies as $movie)
+                <div class="mt-8">
+                    <a href="#">
+                        <img src="https://placehold.co/300x450"
+                             class="hover:opacity-75 transition ease-in-out duration-150" alt="movie">
+                    </a>
+                    <div class="mt-2">
+                        <a href="#" class="text-lg mt-2 hover:text-gray:300">{{$movie->title}} (year)</a>
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
-        {{-- @endforeach --}}
     </div>
 
 @endsection

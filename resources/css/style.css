@@ -65,6 +65,18 @@ a:hover {
   color: #111827;
 }
 
+/* FOR THE BUTTONS ON MOVIE DETAILS */
+.liked {
+  background-color: #e74c3c;
+}
+
+.whatched {
+  background-color: #ee7000;
+}
+.listed {
+  background-color: #219ce3;
+}
+
 /* MODALS */
 .closeBtn {
   color: #fff;
@@ -76,6 +88,10 @@ a:hover {
   background-color: inherit;
 }
 
-#modal {
+#modalTrailer {
+  display: none;
+}
+
+#modalReview {
   display: none;
 }

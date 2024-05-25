@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\WatchedMovie;
+use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class WatchedMovieController extends Controller
+class ReviewController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,22 +36,27 @@ class WatchedMovieController extends Controller
             'title' => 'required|string',
             'release_date' => 'required|date',
             'poster_path' => 'required|string',
+            'review' => 'required|string',
+            'score' => 'numeric|nullable',
+
         ]);
 
-        // Store the watched movie in the database
-        WatchedMovie::create([
+        Review::create([
             'user_id' => Auth::id(),
             'movie_id' => $request->input('movie_id'),
             'title' => $request->input('title'),
             'release_date' => $request->input('release_date'),
             'poster_path' => $request->input('poster_path'),
+            'review' => $request->input('review'),
+            'score' => $request->input('score'),
         ]);
 
-        return response()->json([
-            'message' => 'Movie watched'
-        ], 201);
 
+        return response()->json([
+            'message' => 'Review submitted successfully'
+        ], 201);
     }
+
 
     /**
      * Display the specified resource.
@@ -83,19 +88,19 @@ class WatchedMovieController extends Controller
     public function destroy($movieId)
     {
         // Get the id of the user currently logged in
-        $userId = Auth::id();
+         $userId = Auth::id();
 
-        // Find the watched movie by its ID and the id of the user currently logged in
-        $deleted = DB::delete('DELETE FROM watched_movies WHERE movie_id = ? AND user_id = ?', [$movieId, $userId]);
+         // Find the movie by its ID and the id of the user currently logged in
+         $deleted = DB::delete('DELETE FROM reviews WHERE movie_id = ? AND user_id = ?', [$movieId, $userId]);
 
-        if ($deleted) {
-            return response()->json([
-                'message' => 'Watched movie deleted successfully'
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'Watched movie not found or you are not authorized to delete it'
-            ], 404);
-        }
+         if ($deleted) {
+             return response()->json([
+                 'message' => 'Review deleted successfully'
+             ]);
+         } else {
+             return response()->json([
+                 'message' => 'Review not found or you are not authorized to delete it'
+             ], 404);
+         }
     }
 }

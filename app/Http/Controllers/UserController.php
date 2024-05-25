@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\LikedMovie;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -51,8 +52,12 @@ class UserController extends Controller
         // Fetch the user or fail if not found
         $user = User::findOrFail($id);
 
+        // Fetch liked movies for the user
+        $likedMovies = LikedMovie::where('user_id', $user->id)->get();
+
         return view('users.show', [
-            'user' => $user
+            'user' => $user,
+            'likedMovies' => $likedMovies
         ]);
 
     }

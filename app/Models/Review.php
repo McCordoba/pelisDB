@@ -12,7 +12,13 @@ class Review extends Model
 
     //
     protected $fillable = [
-        'user_id', 'title', 'movie_id'
+        'user_id',
+        'movie_id',
+        'title',
+        'score',
+        'review',
+        'release_date',
+        'poster_path',
     ];
 
     // Cast timeStamp to datetime

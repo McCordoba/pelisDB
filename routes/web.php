@@ -5,10 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ActorController;
 
-use App\Http\Controllers\UserController;
-
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
+
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WatchedMovieController;
+use App\Http\Controllers\LikedMovieController;
+use App\Http\Controllers\WatchListController;
+use App\Http\Controllers\ReviewController;
 
 // Routes for the movies
 Route::get('/', [MovieController::class, 'index'])->name('index'); // This is the main page of the app
@@ -32,18 +36,28 @@ Route::middleware(['auth'])->group(function () {
     // Define routes that require authentication within this group
     // Routes for users
     // Using the method resource() laravel automatically generates the necessary routes for common CRUD operations
-    // Route::resource('likedMovies', LikedMovieController::class);
-    Route::resource('users', UserController::class);
+    // Route::resource('users', UserController::class);
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
-    // Route::get('/users/edit', [UserController::class, 'edit'])->name('user.edit');
-
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 
     Route::post('/users/update', [UserController::class, 'update'])->name('users.update');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    // TODO this route will be for the admins
-    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Routes for the watched movies
+    Route::post('/watched-movies', [WatchedMovieController::class, 'store']);
+    Route::delete('/watched-movies/{id}', [WatchedMovieController::class, 'destroy']);
+
+    // Routes for the liked movies
+    Route::post('/liked-movies', [LikedMovieController::class, 'store']);
+    Route::delete('/liked-movies/{id}', [LikedMovieController::class, 'destroy']);
+
+    // Routes for the movies on the watchlist
+    Route::post('/watchlist', [WatchListController::class, 'store']);
+    Route::delete('/watchlist/{id}', [WatchListController::class, 'destroy']);
+
+    // Routes for the reviews
+    Route::post('/review', [ReviewController::class, 'store']);
+    Route::delete('/review/{id}', [ReviewController::class, 'destroy']);
 });
 
