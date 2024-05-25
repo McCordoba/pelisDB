@@ -61,10 +61,24 @@ class ReviewController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($movieId)
     {
-        //
+        $userId = Auth::id();
+        $review = Review::where('movie_id', $movieId)
+            ->where('user_id', $userId)
+            ->first();
+
+        if ($review) {
+            return response()->json([
+                'review' => $review
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Review not found'
+            ], 404);
+        }
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -79,7 +93,33 @@ class ReviewController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validates the incoming request to ensure it contains the necessary data
+        $request->validate([
+            'movie_id' => 'required|integer',
+            'title' => 'required|string',
+            'release_date' => 'required|date',
+            'poster_path' => 'required|string',
+            'review' => 'required|string',
+            'score' => 'numeric|nullable',
+        ]);
+
+        // Find the review by movie ID and user ID
+        $review = Review::where('movie_id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+
+        // Update the review with new data
+        $review->update([
+            'title' => $request->input('title'),
+            'release_date' => $request->input('release_date'),
+            'poster_path' => $request->input('poster_path'),
+            'review' => $request->input('review'),
+            'score' => $request->input('score'),
+        ]);
+
+        return response()->json([
+            'message' => 'Review updated successfully'
+        ], 200);
     }
 
     /**
@@ -88,19 +128,19 @@ class ReviewController extends Controller
     public function destroy($movieId)
     {
         // Get the id of the user currently logged in
-         $userId = Auth::id();
+        $userId = Auth::id();
 
-         // Find the movie by its ID and the id of the user currently logged in
-         $deleted = DB::delete('DELETE FROM reviews WHERE movie_id = ? AND user_id = ?', [$movieId, $userId]);
+        // Find the movie by its ID and the id of the user currently logged in
+        $deleted = DB::delete('DELETE FROM reviews WHERE movie_id = ? AND user_id = ?', [$movieId, $userId]);
 
-         if ($deleted) {
-             return response()->json([
-                 'message' => 'Review deleted successfully'
-             ]);
-         } else {
-             return response()->json([
-                 'message' => 'Review not found or you are not authorized to delete it'
-             ], 404);
-         }
+        if ($deleted) {
+            return response()->json([
+                'message' => 'Review deleted successfully'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Review not found or you are not authorized to delete it'
+            ], 404);
+        }
     }
 }

@@ -59,5 +59,7 @@ Route::middleware(['auth'])->group(function () {
     // Routes for the reviews
     Route::post('/review', [ReviewController::class, 'store']);
     Route::delete('/review/{id}', [ReviewController::class, 'destroy']);
+    Route::get('/review/{id}', [ReviewController::class, 'show']);
+    Route::put('/review/{id}', [ReviewController::class, 'update']);
 });
 

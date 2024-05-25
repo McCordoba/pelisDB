@@ -83,20 +83,20 @@ class WatchListController extends Controller
      */
     public function destroy($movieId)
     {
-         // Get the id of the user currently logged in
-         $userId = Auth::id();
+        // Get the id of the user currently logged in
+        $userId = Auth::id();
 
-         // Find the movie by its ID and the id of the user currently logged in
-         $deleted = DB::delete('DELETE FROM watchlists WHERE movie_id = ? AND user_id = ?', [$movieId, $userId]);
+        // Find the movie by its ID and the id of the user currently logged in
+        $deleted = DB::delete('DELETE FROM watchlists WHERE movie_id = ? AND user_id = ?', [$movieId, $userId]);
 
-         if ($deleted) {
-             return response()->json([
-                 'message' => 'Deleted movie from watchlist successfully'
-             ]);
-         } else {
-             return response()->json([
-                 'message' => 'Movie not found in watchlist or you are not authorized to delete it'
-             ], 404);
-         }
+        if ($deleted) {
+            return response()->json([
+                'message' => 'Deleted movie from watchlist successfully'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Movie not found in watchlist or you are not authorized to delete it'
+            ], 404);
+        }
     }
 }

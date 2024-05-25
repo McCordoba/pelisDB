@@ -241,58 +241,60 @@ reviewButton.addEventListener("mouseleave", function () {
   }
 });
 
-// RATE BUTTON
-rateButton.addEventListener("click", function (e) {
+// EDIT BUTTON
+const editReviewButton = document.getElementById("editReviewButton");
+
+// Fetch existing review and populate form
+const movieId = reviewButton.getAttribute("data-movie-id");
+fetch(`/review/${movieId}`, {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    "X-CSRF-TOKEN": csrfToken,
+  },
+})
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.review) {
+      document.getElementById("review").value = data.review.review;
+      document.getElementById("score").value = data.review.score;
+      reviewButton.classList.add("reviewed");
+      reviewButton.querySelector("span").innerText = "Reviewed";
+    }
+  })
+  .catch((error) => console.error("Error:", error.message));
+
+// Edits the review
+editReviewButton.addEventListener("click", function (e) {
   e.preventDefault(); // Prevent default form submission
-  const movieId = this.getAttribute("data-movie-id");
-  const movieTitle = this.getAttribute("data-movie-title");
-  const releaseDate = this.getAttribute("data-release-date");
-  const posterPath = this.getAttribute("data-poster-path");
+
+  const movieId = reviewButton.getAttribute("data-movie-id");
+  const movieTitle = reviewButton.getAttribute("data-movie-title");
+  const releaseDate = reviewButton.getAttribute("data-release-date");
+  const posterPath = reviewButton.getAttribute("data-poster-path");
+  const reviewText = document.getElementById("review").value;
   const rating = document.getElementById("score").value;
-  console.log(rating);
 
-  if (this.classList.contains("rated")) {
-    this.classList.remove("rated");
-    this.querySelector("span").innerText = "Rate";
-    sendRequest(
-      `/review/${movieId}`,
-      "DELETE",
-      {
-        movie_id: movieId,
-        title: movieTitle,
-        score: rating,
-        release_date: releaseDate,
-        poster_path: posterPath,
-      },
-      csrfToken
-    );
+  const requestData = {
+    movie_id: movieId,
+    title: movieTitle,
+    review: reviewText,
+    release_date: releaseDate,
+    poster_path: posterPath,
+  };
+
+  if (rating) {
+    requestData.score = rating;
+  }
+
+  // If the review already exists, update it
+  if (reviewButton.classList.contains("reviewed")) {
+    sendRequest(`/review/${movieId}`, "PUT", requestData, csrfToken);
   } else {
-    this.classList.add("rated");
-    this.querySelector("span").innerText = "Rated";
-    sendRequest(
-      "/review",
-      "POST",
-      {
-        movie_id: movieId,
-        title: movieTitle,
-        score: rating,
-        release_date: releaseDate,
-        poster_path: posterPath,
-      },
-      csrfToken
-    );
-  }
-});
-
-rateButton.addEventListener("mouseenter", function () {
-  if (this.classList.contains("rated")) {
-    this.querySelector("span").innerText = "Unrate";
-  }
-});
-
-rateButton.addEventListener("mouseleave", function () {
-  if (this.classList.contains("rated")) {
-    this.querySelector("span").innerText = "Rated";
+    // Otherwise, create a new review
+    sendRequest("/review", "POST", requestData, csrfToken);
+    reviewButton.classList.add("reviewed");
+    reviewButton.querySelector("span").innerText = "Reviewed";
   }
 });
 

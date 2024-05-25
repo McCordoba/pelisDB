@@ -138,31 +138,52 @@
         </div>
     </div>
 
-    <div class="container mx-auto px-4 py-16">
-        <h2 class="text-4xl font-semibold">Cast</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-            @foreach ($cast as $actor)
-                <div class="mt-8">
-                    <a href="{{ route('actors.showActor', $actor['id']) }}">
-                        @if ($actor['profile_path'])
-                            <img src="https://image.tmdb.org/t/p/w500{{ $actor['profile_path'] }}"
-                                 alt="{{ $actor['name'] }}"
-                                 class="hover:opacity-75 transition ease-in-out duration-150">
-                        @else
-                            <img src="https://placehold.co/300x450?text={{ $actor['name'] }}"
-                                 class="hover:opacity-75 transition ease-in-out duration-150">
-                        @endif
+    <div class="movie-info border-b border-gray-500">
+        <div class="container mx-auto px-4 py-16">
+            <h2 class="text-4xl font-semibold">Cast</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                @foreach ($cast as $actor)
+                    <div class="mt-8">
+                        <a href="{{ route('actors.showActor', $actor['id']) }}">
+                            @if ($actor['profile_path'])
+                                <img src="https://image.tmdb.org/t/p/w500{{ $actor['profile_path'] }}"
+                                     alt="{{ $actor['name'] }}"
+                                     class="hover:opacity-75 transition ease-in-out duration-150">
+                            @else
+                                <img src="https://placehold.co/300x450?text={{ $actor['name'] }}"
+                                     class="hover:opacity-75 transition ease-in-out duration-150">
+                            @endif
 
-                    </a>
-                    <div class="mt-2">
-                        <a href="{{ route('actors.showActor', $actor['id']) }}"
-                           class="text-lg mt-2 hover:text-gray:300">{{ $actor['name'] }}</a>
-                        <div class="text-sm text-gray-400">
-                            {{ $actor['character'] }}
+                        </a>
+                        <div class="mt-2">
+                            <a href="{{ route('actors.showActor', $actor['id']) }}"
+                               class="text-lg mt-2 hover:text-gray:300">{{ $actor['name'] }}</a>
+                            <div class="text-sm text-gray-400">
+                                {{ $actor['character'] }}
+                            </div>
                         </div>
                     </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    {{-- REVIEWS FOR THE MOVIE --}}
+    <div class="container mx-auto px-4 py-16">
+        <h2 class="text-4xl font-semibold">Reviews</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            {{-- @foreach ($cast as $actor) --}}
+            <div class="mt-8">
+                <a href="">
+                </a>
+                <div class="mt-2">
+                    <a href="" class="text-lg mt-2 hover:text-gray:300"></a>
+                    <div class="text-sm text-gray-400">
+                        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia odit nobis hic, quas maxime deleniti eligendi exercitationem distinctio natus eos voluptates eum blanditiis, in culpa incidunt nisi, earum harum vero.</span>
+                    </div>
                 </div>
-            @endforeach
+            </div>
+            {{-- @endforeach --}}
         </div>
     </div>
     </div>
@@ -179,41 +200,33 @@
                 <div class="max-w-md mx-auto bg-gray-800 rounded-lg overflow-hidden shadow-lg p-6 flex flex-wrap">
                     <h1 class="w-full text-2xl font-bold mb-4">Write a review</h1>
 
-                    <!-- Review Form -->
-                    <form id="reviewForm" method="POST" action="" class="w-full flex flex-wrap">
+                    <form id="reviewForm" method="" action="" class="w-full flex flex-wrap">
                         @csrf
                         <div class="w-full mb-4">
                             <label for="review" class="block text-gray-300">Review</label>
                             <textarea name="review" id="review" cols="30" rows="5" required
                                       class="mt-1 block w-full rounded-md px-4 py-1 bg-gray-800 shadow-sm focus:border-[var(--two)] focus:ring focus:outline-none focus:ring-[var(--two)] focus:ring-opacity-50"></textarea>
+                        </div>
+                        <div class="w-full mb-4">
+                            <label for="score" class="block text-gray-300">Rating (Optional)</label>
+                            <span class="text-green-500 text-sm">Rate 1 to 10</span>
+                            <input type="number" id="score" name="score" min="1" max="10" placeholder="1.00" step="0.5"
+                                   class="mt-1 block w-full rounded-md px-4 py-1 bg-gray-800 shadow-sm focus:border-[var(--two)] focus:ring focus:outline-none focus:ring-[var(--two)] focus:ring-opacity-50">
+                        </div>
+                        <div class="flex w-full justify-center">
+                            <button id="editReviewButton"
+                                    class="edit-review-button py-2 px-4 flex items-center rounded font-semibold h-12 justify-center transition ease-in-out duration-150 mt-2 mr-2 ">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                                <span class="ml-2">Edit</span>
+                            </button>
                             <button id="reviewButton" type="submit"
-                                    class="review flex items-center rounded font-semibold w-full h-12 justify-center transition ease-in-out duration-150 mt-2 {{ $movieDetails['reviewed'] ? 'reviewed' : '' }}"
+                                    class="review py-2 px-4 flex items-center rounded font-semibold h-12 justify-center transition ease-in-out duration-150 mt-2 {{ $movieDetails['reviewed'] ? 'reviewed' : '' }}"
                                     data-movie-id="{{ $movieDetails['id'] }}"
                                     data-movie-title="{{ $movieDetails['title'] }}"
                                     data-release-date="{{ $movieDetails['release_date'] }}"
                                     data-poster-path="{{ $movieDetails['poster_path'] }}">
                                 <i class="fa-regular fa-message"></i>
                                 <span class="ml-2">{{ $movieDetails['reviewed'] ? 'Reviewed' : 'Review' }}</span>
-                            </button>
-                        </div>
-                    </form>
-
-                    <!-- Rating Form -->
-                    <form id="ratingForm" method="POST" action="" class="w-full flex flex-wrap">
-                        @csrf
-                        <div class="w-full mb-4">
-                            <label for="score" class="block text-gray-300">Add a rating (Optional)</label>
-                            <span class="text-green-500 text-sm">Rate 1 to 10</span>
-                            <input type="number" id="score" name="score" min="1" max="10" placeholder="1.00" step="0.5"
-                                   class="mt-1 block w-full rounded-md px-4 py-1 bg-gray-800 shadow-sm focus:border-[var(--two)] focus:ring focus:outline-none focus:ring-[var(--two)] focus:ring-opacity-50">
-                            <button id="rateButton" type="submit"
-                                    class="rate flex items-center rounded font-semibold w-full h-12 justify-center transition ease-in-out duration-150 mt-2 {{ $movieDetails['rated'] ? 'rated' : '' }}"
-                                    data-movie-id="{{ $movieDetails['id'] }}"
-                                    data-movie-title="{{ $movieDetails['title'] }}"
-                                    data-release-date="{{ $movieDetails['release_date'] }}"
-                                    data-poster-path="{{ $movieDetails['poster_path'] }}">
-                                <i class="fa-regular fa-star"></i>
-                                <span class="ml-2">{{ $movieDetails['rated'] ? 'Rated' : 'Rate' }}</span>
                             </button>
                         </div>
                     </form>
