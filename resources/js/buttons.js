@@ -34,7 +34,6 @@ const watchButton = document.querySelector(".watch");
 const likeButton = document.querySelector(".like");
 const watchlistButton = document.querySelector(".watchlist");
 const reviewButton = document.querySelector(".review");
-const rateButton = document.querySelector(".rate");
 
 // WATCH BUTTON
 watchButton.addEventListener("click", function () {

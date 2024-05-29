@@ -107,8 +107,7 @@
                                         <span class="ml-2">{{ $movieDetails['listed'] ? 'Listed' : 'Watchlist' }}</span>
                                     </button>
                                 </li>
-                                {{-- TODO INSIDE THE MODAL REVIEW
-                                    Will be a form to put the text and a option to rate it --}}
+                                {{-- Opens the MODAL REVIEW --}}
                                 <li class="mb-4">
                                     <button
                                         id="reviewModalBtn"
@@ -169,24 +168,26 @@
     </div>
 
     {{-- REVIEWS FOR THE MOVIE --}}
-    <div class="container mx-auto px-4 py-16">
-        <h2 class="text-4xl font-semibold">Reviews</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-            {{-- @foreach ($cast as $actor) --}}
-            <div class="mt-8">
-                <a href="">
-                </a>
-                <div class="mt-2">
-                    <a href="" class="text-lg mt-2 hover:text-gray:300"></a>
-                    <div class="text-sm text-gray-400">
-                        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia odit nobis hic, quas maxime deleniti eligendi exercitationem distinctio natus eos voluptates eum blanditiis, in culpa incidunt nisi, earum harum vero.</span>
-                    </div>
+<div class="container mx-auto px-4 py-16">
+    <h2 class="text-4xl font-semibold">Reviews</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        {{-- @foreach ($reviews as $review) --}}
+        <div class="mt-8">
+            <a href="">
+                <img src="" alt="" class="w-full h-auto">
+            </a>
+            <div class="mt-2">
+                <a href="" class="text-lg mt-2 hover:text-gray:300"></a>
+                <div class="text-sm text-gray-400">
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis beatae voluptates iste minus dignissimos, eveniet alias molestiae veritatis dolor tempora esse inventore blanditiis commodi at quae numquam quod culpa itaque.</span>
                 </div>
             </div>
-            {{-- @endforeach --}}
         </div>
+        {{-- @endforeach --}}
     </div>
-    </div>
+</div>
+</div>
+
 
     {{-- MODAL FOR THE REVIEW --}}
     <div id="modalReview" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900/50">
@@ -207,6 +208,8 @@
                             <textarea name="review" id="review" cols="30" rows="5" required
                                       class="mt-1 block w-full rounded-md px-4 py-1 bg-gray-800 shadow-sm focus:border-[var(--two)] focus:ring focus:outline-none focus:ring-[var(--two)] focus:ring-opacity-50"></textarea>
                         </div>
+
+
                         <div class="w-full mb-4">
                             <label for="score" class="block text-gray-300">Rating (Optional)</label>
                             <span class="text-green-500 text-sm">Rate 1 to 10</span>
@@ -234,7 +237,6 @@
             </div>
         </div>
     </div>
-
 
     {{-- MODAL FOR THE TRAILER --}}
     <div id="modalTrailer" class="fixed top-0 left-0 w-full h-full flex items-center shadow-lg overflow-y-auto">

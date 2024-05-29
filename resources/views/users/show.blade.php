@@ -13,7 +13,12 @@
                 @endif
 
                 <div class="mt-4">
-                    <a href="{{ route('users.edit', auth()->user()->id) }}"><span>Edit user data</span></a>
+                    <button
+                    class="flex items-center rounded font-semibold w-48 h-12 justify-center transition ease-in-out duration-150">
+                <span class="ml-2">
+                    <a class="movieLog"
+                       href="{{ route('users.edit', auth()->user()->id) }}">Edit user data</a>
+                </span>
                 </div>
             </div>
 
@@ -47,23 +52,87 @@
         </div>
     </div>
 
+    <div class="user-info border-b border-gray-500">
     <div class="container mx-auto px-4 py-16">
-        {{-- The last 20 liked movies of the user --}}
+
         <h3 class="text-2xl font-semibold">Liked movies</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
 
             @foreach($likedMovies as $movie)
                 <div class="mt-8">
-                    <a href="#">
-                        <img src="https://placehold.co/300x450"
-                             class="hover:opacity-75 transition ease-in-out duration-150" alt="movie">
+                    <a href="{{ route('movieDetails.index', $movie->movie_id) }}">
+                        <img src="https://image.tmdb.org/t/p/w300{{ $movie->poster_path }}"
+                             class="hover:opacity-75 transition ease-in-out duration-150" alt="{{$movie->title}}">
                     </a>
                     <div class="mt-2">
-                        <a href="#" class="text-lg mt-2 hover:text-gray:300">{{$movie->title}} (year)</a>
+                        <a href="{{ route('movieDetails.index', $movie->movie_id) }}" class="text-lg mt-2 hover:text-gray:300">{{$movie->title}} ({{ date('Y', strtotime($movie->release_date)) }})</a>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
+    </div>
 
+    <div class="user-info border-b border-gray-500">
+    <div class="container mx-auto px-4 py-16">
+        <h3 class="text-2xl font-semibold">Watched</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+
+            @foreach($watchedMovies as $movie)
+                <div class="mt-8">
+                    <a href="{{ route('movieDetails.index', $movie->movie_id) }}">
+                        <img src="https://image.tmdb.org/t/p/w300{{ $movie->poster_path }}"
+                             class="hover:opacity-75 transition ease-in-out duration-150" alt="{{$movie->title}}">
+                    </a>
+                    <div class="mt-2">
+                        <a href="{{ route('movieDetails.index', $movie->movie_id) }}" class="text-lg mt-2 hover:text-gray:300">{{$movie->title}} ({{ date('Y', strtotime($movie->release_date)) }})</a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+    </div>
+
+    <div class="user-info border-b border-gray-500">
+        <div class="container mx-auto px-4 py-16">
+            <h3 class="text-2xl font-semibold">Watchlist</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+
+                @foreach($listedMovies as $movie)
+                    <div class="mt-8">
+                        <a href="{{ route('movieDetails.index', $movie->movie_id) }}">
+                            <img src="https://image.tmdb.org/t/p/w300{{ $movie->poster_path }}"
+                                 class="hover:opacity-75 transition ease-in-out duration-150" alt="{{$movie->title}}">
+                        </a>
+                        <div class="mt-2">
+                            <a href="{{ route('movieDetails.index', $movie->movie_id) }}" class="text-lg mt-2 hover:text-gray:300">{{$movie->title}} ({{ date('Y', strtotime($movie->release_date)) }})</a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        </div>
+
+        <div class="container mx-auto px-4 py-16">
+            <h3 class="text-2xl font-semibold">Reviews</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+
+                @foreach($reviews as $movie)
+                    <div class="mt-8">
+                        <a href="{{ route('movieDetails.index', $movie->movie_id) }}" class="text-m mr-4 hover:text-gray:300">{{$movie->title}} ({{ date('Y', strtotime($movie->release_date)) }})</a>
+                        <a href="{{ route('movieDetails.index', $movie->movie_id) }}">
+                            <img src="https://image.tmdb.org/t/p/w92{{ $movie->poster_path }}"
+                                 class="hover:opacity-75 transition ease-in-out duration-150 w-8" alt="{{$movie->title}}">
+                        </a>
+
+                        <div class="mt-2">
+                            <p>Score: {{$movie->score}}</p>
+                            <p>{{$movie->review}}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        
 @endsection

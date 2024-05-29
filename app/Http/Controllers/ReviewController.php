@@ -12,10 +12,18 @@ class ReviewController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // Show all reviews for a specific movie
     public function index()
     {
         //
     }
+
+    // Show all reviews for a specific movie
+    public function showReviews($movieId)
+    {
+
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,9 +45,10 @@ class ReviewController extends Controller
             'release_date' => 'required|date',
             'poster_path' => 'required|string',
             'review' => 'required|string',
-            'score' => 'numeric|nullable',
+            'score' => 'numeric|nullable',] , [
+                'review.required' => 'The review must contain text at least.',
 
-        ]);
+            ]);
 
         Review::create([
             'user_id' => Auth::id(),
@@ -78,7 +87,6 @@ class ReviewController extends Controller
             ], 404);
         }
     }
-
 
     /**
      * Show the form for editing the specified resource.

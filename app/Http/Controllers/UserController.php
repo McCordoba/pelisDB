@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\LikedMovie;
+use App\Models\WatchedMovie;
+use App\Models\Watchlist;
+use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -53,11 +56,22 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         // Fetch liked movies for the user
-        $likedMovies = LikedMovie::where('user_id', $user->id)->get();
+        $likedMovies = LikedMovie::where('user_id', $user->id)->take(10)->get();
+
+        // Fetch watched movies for the user
+        $watchedMovies = WatchedMovie::where('user_id', $user->id)->take(5)->get();
+
+        $listedMovies = Watchlist::where('user_id', $user->id)->take(5)->get();
+
+        $reviews = Review::where('user_id', $user->id)->get();
+
 
         return view('users.show', [
             'user' => $user,
-            'likedMovies' => $likedMovies
+            'likedMovies' => $likedMovies,
+            'watchedMovies' => $watchedMovies,
+            'listedMovies' => $listedMovies,
+            'reviews' => $reviews,
         ]);
 
     }
@@ -68,7 +82,7 @@ class UserController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        
+
         return view('users.edit', [
             'user' => $user,
         ]);

@@ -105,10 +105,6 @@ class MovieController extends Controller
         // Check if the movie has been reviewed by the current user
         $movieDetails['reviewed'] = Auth::check() ? Auth::user()->reviews()->where('movie_id', $id)->exists() : false;
 
-        // Check if the movie has been reviewed by the current user
-        $movieDetails['rated'] = Auth::check() ? Auth::user()->reviews()->where('movie_id', $id)->exists() : false;
-
-
         // Pass the movie details to the view
         return view('movieDetails.index', [
             'movieDetails' => $movieDetails,

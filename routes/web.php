@@ -61,5 +61,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/review/{id}', [ReviewController::class, 'destroy']);
     Route::get('/review/{id}', [ReviewController::class, 'show']);
     Route::put('/review/{id}', [ReviewController::class, 'update']);
+
+    Route::get('/reviews/{movieId}', [ReviewController::class, 'showReviews']);
 });
 
