@@ -1,6 +1,6 @@
 # PelisDB
 
-<p align="center"><a><img src="public/img/PelisDB_logo_white.png" width="400" alt="PelisBD Logo"></a></p>
+<p align="center"><a ><img src="public/img/PelisDB_logo_white.png" width="400" alt="PelisBD Logo"></a></p>
 
 # Definición del proyecto
 
@@ -19,7 +19,7 @@ Para garantizar la disponibilidad de una amplia gama de datos actualizados relac
 
 - Back-end
 
-  - Laravel Blade y Liveware
+  - Laravel Blade y Livewire
   - MySQL
   - API themoviedb
 
@@ -53,7 +53,7 @@ Habrá 5 tablas en la base de datos, que son:
 
 # Diagrama E/R de la base de datos
 
-<p align="center"><a><img src="public/img/Esquema entidad-relación.png" alt="diagrama_ER"></a></p>
+<p align="center"><a><img src="public/img/Esquema entidad-relación.drawio.png" alt="diagrama_ER"></a></p>
 
 # Diseño físico de la base de datos
 
@@ -65,9 +65,7 @@ Habrá 5 tablas en la base de datos, que son:
 - Los usuarios sin cuenta pueden buscar información sobre películas, actores, directores, etc.
 - Los usuarios deberán registrarse para poder hacer una reseña sobre una película, añadirla a favoritos, etc.
 - Las reseñas siempre deberán contener texto, y opcionalmente, una calificación.
-- Los usuarios registrados dispondran de una sección en la que puedan consultar sus datos y modificarlos si lo desean.
-
-# Diseño de la página web
+- Los usuarios registrados dispondrán de una sección en la que podrán consultar sus datos y modificarlos si lo desean.
 
 # Bibliografía
 

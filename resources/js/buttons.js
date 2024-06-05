@@ -20,10 +20,7 @@ function sendRequest(url, method, data, csrfToken) {
       return response.json();
     })
     .then((data) => {
-      console.log(
-        `${method === "POST" ? "Processed" : "Removed"} successfully`,
-        data.message
-      );
+      console.log(data.message);
     })
     .catch((error) => {
       console.error("Error:", error.message);
@@ -193,38 +190,30 @@ reviewButton.addEventListener("click", function (e) {
   const releaseDate = this.getAttribute("data-release-date");
   const posterPath = this.getAttribute("data-poster-path");
   const reviewText = document.getElementById("review").value;
+  const rating = document.getElementById("score").value;
   console.log(reviewText);
+  console.log(rating);
+
+  const requestData = {
+    movie_id: movieId,
+    title: movieTitle,
+    review: reviewText,
+    release_date: releaseDate,
+    poster_path: posterPath,
+  };
+
+  if (rating) {
+    requestData.score = rating;
+  }
 
   if (this.classList.contains("reviewed")) {
     this.classList.remove("reviewed");
     this.querySelector("span").innerText = "Review";
-    sendRequest(
-      `/review/${movieId}`,
-      "DELETE",
-      {
-        movie_id: movieId,
-        title: movieTitle,
-        review: reviewText,
-        release_date: releaseDate,
-        poster_path: posterPath,
-      },
-      csrfToken
-    );
+    sendRequest(`/review/${movieId}`, "DELETE", requestData, csrfToken);
   } else {
     this.classList.add("reviewed");
     this.querySelector("span").innerText = "Reviewed";
-    sendRequest(
-      "/review",
-      "POST",
-      {
-        movie_id: movieId,
-        title: movieTitle,
-        review: reviewText,
-        release_date: releaseDate,
-        poster_path: posterPath,
-      },
-      csrfToken
-    );
+    sendRequest("/review", "POST", requestData, csrfToken);
   }
 });
 
@@ -289,6 +278,7 @@ editReviewButton.addEventListener("click", function (e) {
   // If the review already exists, update it
   if (reviewButton.classList.contains("reviewed")) {
     sendRequest(`/review/${movieId}`, "PUT", requestData, csrfToken);
+    editReviewButton.querySelector("span").innerText = "Edited";
   } else {
     // Otherwise, create a new review
     sendRequest("/review", "POST", requestData, csrfToken);

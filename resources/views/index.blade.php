@@ -2,17 +2,19 @@
 
 @section('content')
 
-<h2 class="uppercase tracking-wider text-lg font-semibold" style="color: #00e054;"">Popular Movies</h2>
+    <h2 class="uppercase tracking-wider text-lg font-semibold" style="color: #00e054;"">Popular Movies</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
         @foreach ($popularMovies as $movie)
             <div class="mt-8">
-                  <!-- Link to the movie details page -->
-                 <a href="{{ route('movieDetails.index', $movie['id']) }}">
+                <!-- Link to the movie details page -->
+                <a href="{{ route('movieDetails.index', $movie['id']) }}">
                     <img src="https://image.tmdb.org/t/p/w500{{ $movie['poster_path'] }}"
-                         alt="{{ $movie['title'] }}" class="w-full h-auto mb-2 hover:opacity-75 transition ease-in-out duration-150">
+                         alt="{{ $movie['title'] }}"
+                         class="w-full h-auto mb-2 hover:opacity-75 transition ease-in-out duration-150">
                 </a>
                 <div class="mt-2">
-                    <a href="{{ route('movieDetails.index', $movie['id']) }}" class="text-lg mt-2">{{ $movie['title'] }}</a>
+                    <a href="{{ route('movieDetails.index', $movie['id']) }}"
+                       class="text-lg mt-2">{{ $movie['title'] }}</a>
                     <div class="flex items-center text-gray-400 text-sm mt-1">
                         <i class="fa-solid fa-star" style="color: #00e054;"></i>
                         <span class="ml-1">{{ intval($movie['vote_average'] * 10) .'%' }}</span>

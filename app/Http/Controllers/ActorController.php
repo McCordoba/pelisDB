@@ -12,7 +12,7 @@ class ActorController extends Controller
      */
     public function index()
     {
-        // Fetch popular actors known for movies from TMDb API
+        // Fetch popular actors known for movies
         $actorsData = Http::get('https://api.themoviedb.org/3/person/popular?api_key=' . config('services.tmdb.token'))->json()['results'];
 
         // Filter out actors known for TV shows
@@ -23,7 +23,7 @@ class ActorController extends Controller
             return $actor;
         })->toArray();
 
-        dump($filteredActors);
+        // dump($filteredActors);
 
         // Pass the filtered actors data to the view
         return view('actors.index', [
@@ -59,8 +59,20 @@ class ActorController extends Controller
         $actorMovieCredits = Http::get("https://api.themoviedb.org/3/person/{$id}/movie_credits?api_key=" . config('services.tmdb.token'))
             ->json();
 
-        dump($actorDetails);
-        dump($actorMovieCredits);
+        $social = Http::get("https://api.themoviedb.org/3/person/{$id}/external_ids?api_key=" . config('services.tmdb.token'))
+            ->json();
+
+        //dump($actorDetails);
+        //dump($actorMovieCredits);
+        //dump($social);
+
+        // Calculate age
+        $actorDetails['age'] = $this->calculateAge($actorDetails['birthday']);
+
+        // Calculate age at death if both birthday and deathday exist
+        if (isset($actorDetails['birthday']) && isset($actorDetails['deathday'])) {
+            $actorDetails['ageOfDeath'] = $this->calculateAgeAtDeath($actorDetails['birthday'], $actorDetails['deathday']);
+        }
 
         // Extract the first 20 movies that the actor starred sorted by popularity
         $movies = collect($actorMovieCredits['cast'])->take(20)->sortByDesc('popularity');
@@ -74,8 +86,34 @@ class ActorController extends Controller
             'actorDetails' => $actorDetails,
             'actorMovieCredits' => $actorMovieCredits,
             'movies' => $movies,
-            'directedMovies' => $directedMovies
+            'directedMovies' => $directedMovies,
+            'social' => $social
         ]);
+    }
+
+    /**
+     * Calculate age from birthday.
+     */
+    private function calculateAge($birthday)
+    {
+        $birthDate = new \DateTime($birthday);
+        $currentDate = new \DateTime();
+        $age = $currentDate->diff($birthDate)->y;
+        return $age;
+    }
+
+    /**
+     * Calculate age at death from birthday and deathday.
+     */
+    private function calculateAgeAtDeath($birthday, $deathday)
+    {
+        if ($birthday && $deathday) {
+            $birthDate = new \DateTime($birthday);
+            $deathDate = new \DateTime($deathday);
+            $ageAtDeath = $deathDate->diff($birthDate)->y;
+            return $ageAtDeath;
+        }
+        return null;
     }
 
     /**

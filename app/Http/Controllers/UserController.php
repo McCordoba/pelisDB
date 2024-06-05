@@ -55,23 +55,40 @@ class UserController extends Controller
         // Fetch the user or fail if not found
         $user = User::findOrFail($id);
 
-        // Fetch liked movies for the user
+        // Fetch the liked movies of the user
         $likedMovies = LikedMovie::where('user_id', $user->id)->take(10)->get();
 
-        // Fetch watched movies for the user
+        // Get the total number of liked movies of the user
+        $totalLikedMovies = LikedMovie::where('user_id', $user->id)->count();
+
+        // Fetch watched movies of the user
         $watchedMovies = WatchedMovie::where('user_id', $user->id)->take(5)->get();
 
+        // Get the total number of watched movies of the user
+        $totalWatchedMovies = WatchedMovie::where('user_id', $user->id)->count();
+
+        // Fetch the listed movies of the user
         $listedMovies = Watchlist::where('user_id', $user->id)->take(5)->get();
 
+        // Get the total number of listed movies of the user
+        $totalListedMovies = Watchlist::where('user_id', $user->id)->count();
+
+        // Fetch the reviews movies of the user
         $reviews = Review::where('user_id', $user->id)->get();
 
+        // Get the total number of reviews movies of the user
+        $totalRevies = Review::where('user_id', $user->id)->count();
 
         return view('users.show', [
             'user' => $user,
             'likedMovies' => $likedMovies,
+            'totalLikedMovies' => $totalLikedMovies,
             'watchedMovies' => $watchedMovies,
+            'totalWatchedMovies' => $totalWatchedMovies,
             'listedMovies' => $listedMovies,
+            'totalListedMovies' => $totalListedMovies,
             'reviews' => $reviews,
+            'totalRevies' => $totalRevies
         ]);
 
     }
@@ -88,7 +105,7 @@ class UserController extends Controller
         ]);
     }
 
-     /**
+    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request)
@@ -112,7 +129,7 @@ class UserController extends Controller
 
         $user->update($request->only('name', 'email'));
 
-        return redirect()->route('users.edit',  $user->id)->with('success', 'Profile updated successfully.');
+        return redirect()->route('users.edit', $user->id)->with('success', 'Profile updated successfully.');
     }
 
     protected function validator(array $data)

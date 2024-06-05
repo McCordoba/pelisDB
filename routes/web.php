@@ -30,16 +30,17 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
+Route::get('/about', function () {
+    return view('about.about');
+})->name('about');
+
 // Middleware to protect routes that require authentication
 Route::middleware(['auth'])->group(function () {
 
     // Define routes that require authentication within this group
     // Routes for users
-    // Using the method resource() laravel automatically generates the necessary routes for common CRUD operations
-    // Route::resource('users', UserController::class);
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-
     Route::post('/users/update', [UserController::class, 'update'])->name('users.update');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -61,7 +62,5 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/review/{id}', [ReviewController::class, 'destroy']);
     Route::get('/review/{id}', [ReviewController::class, 'show']);
     Route::put('/review/{id}', [ReviewController::class, 'update']);
-
-    Route::get('/reviews/{movieId}', [ReviewController::class, 'showReviews']);
 });
 

@@ -1,11 +1,4 @@
 :root {
-  --principal: #2ec4b6;
-  --secondary: #cbf3f0;
-  --background: #14181c;
-  --background-contrast: #efefef;
-  --hover: #ffbf69;
-  --contrast: #f97316;
-
   --one: #219ce3;
   --two: #4bc02f;
   --three: #ee7000;
@@ -35,6 +28,7 @@ a {
 }
 
 a:hover {
+  cursor: pointer;
   color: #00e054;
 }
 

@@ -11,17 +11,21 @@ class SearchBar extends Component
 
     public function render()
     {
-        $searchResults = [];
+        $movieResults = [];
+        $actorResults = [];
 
         if (strlen($this->search) >= 2) {
-            $searchResults = Http::get('https://api.themoviedb.org/3/search/movie?query='.$this->search.'&api_key='.config('services.tmdb.token'))
+            $movieResults = Http::get('https://api.themoviedb.org/3/search/movie?query=' . $this->search . '&api_key=' . config('services.tmdb.token'))
+                ->json()['results'];
+
+            $actorResults = Http::get('https://api.themoviedb.org/3/search/person?query=' . $this->search . '&api_key=' . config('services.tmdb.token'))
                 ->json()['results'];
         }
 
-       //dump($searchResults);
-
         return view('livewire.search-bar', [
-            'searchResults' => collect($searchResults)->take(7),
+            'movieResults' => collect($movieResults)->take(7),
+            'actorResults' => collect($actorResults)->take(7),
         ]);
     }
 }
+

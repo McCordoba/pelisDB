@@ -18,13 +18,6 @@ class ReviewController extends Controller
         //
     }
 
-    // Show all reviews for a specific movie
-    public function showReviews($movieId)
-    {
-
-    }
-
-
     /**
      * Show the form for creating a new resource.
      */
@@ -38,6 +31,7 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
+        // TODO Fix the errors it doesnt work properly
         // Validates the incoming request to ensure it contains the necessary data
         $request->validate([
             'movie_id' => 'required|integer',
@@ -45,10 +39,10 @@ class ReviewController extends Controller
             'release_date' => 'required|date',
             'poster_path' => 'required|string',
             'review' => 'required|string',
-            'score' => 'numeric|nullable',] , [
-                'review.required' => 'The review must contain text at least.',
+            'score' => 'numeric|nullable',], [
+            'review.required' => 'The review must contain text at least.',
 
-            ]);
+        ]);
 
         Review::create([
             'user_id' => Auth::id(),

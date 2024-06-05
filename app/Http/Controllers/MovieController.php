@@ -113,7 +113,6 @@ class MovieController extends Controller
         ]);
     }
 
-
     public function fetchVideos($id)
     {
         // Fetch videos for the given movie ID using TMDB API
@@ -126,7 +125,6 @@ class MovieController extends Controller
             return response()->json(['error' => 'Failed to fetch videos'], 500);
         }
     }
-
 
     /**
      * Show the form for editing the specified resource.

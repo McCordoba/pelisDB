@@ -10,7 +10,7 @@
     {{-- fontawesome --}}
     <script src="https://kit.fontawesome.com/5f361d4fee.js" crossorigin="anonymous"></script>
 
-    @vite(['resources/js/script.js', 'resources/js/trailerModal.js', 'resources/js/buttons.js', 'resources/css/app.css', 'resources/css/style.css'])
+    @vite(['resources/js/script.js', 'resources/js/trailerModal.js', 'resources/js/buttons.js', 'resources/js/readMore.js', 'resources/css/app.css',  'resources/css/style.css'])
 
     <title>@yield('title', 'PelisDB')</title>
 </head>
@@ -84,22 +84,16 @@
     <div class="container mx-auto text-sm font-bold px-4 py-6">
         <ul class="flex flex-col md:flex-row items-center">
             <li class="md:ml-6 mt-3 md:mt-0">
-                <a href="" class="hover:text-gray-300">About</a>
+                <a href="{{ route('about') }}" class="hover:text-gray-300">About</a>
             </li>
             <li class="md:ml-6 mt-3 md:mt-0">
                 <a href="" class="hover:text-gray-300">Contact</a>
-            </li>
-            <li class="md:ml-6 mt-3 md:mt-0">
-                <a href="" class="hover:text-gray-300">SDASAD</a>
-            </li>
-            <li class="md:ml-6 mt-3 md:mt-0">
-                <a href="" class="hover:text-gray-300">DSAASDAS</a>
             </li>
         </ul>
     </div>
 
     <div class="container mx-auto text-sm px-4 py-6">
-        Powered by <a href="https://www.themoviedb.org/documentation/api" class="underline hover:text-gray-300">TMDb
+        Powered by <a href="https://www.themoviedb.org/documentation/api" class="underline">TMDb
             API</a>
     </div>
 </footer>

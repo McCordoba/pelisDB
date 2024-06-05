@@ -137,57 +137,33 @@
         </div>
     </div>
 
-    <div class="movie-info border-b border-gray-500">
-        <div class="container mx-auto px-4 py-16">
-            <h2 class="text-4xl font-semibold">Cast</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-                @foreach ($cast as $actor)
-                    <div class="mt-8">
-                        <a href="{{ route('actors.showActor', $actor['id']) }}">
-                            @if ($actor['profile_path'])
-                                <img src="https://image.tmdb.org/t/p/w500{{ $actor['profile_path'] }}"
-                                     alt="{{ $actor['name'] }}"
-                                     class="hover:opacity-75 transition ease-in-out duration-150">
-                            @else
-                                <img src="https://placehold.co/300x450?text={{ $actor['name'] }}"
-                                     class="hover:opacity-75 transition ease-in-out duration-150">
-                            @endif
+    <div class="container mx-auto px-4 py-8">
+        <h2 class="text-4xl font-semibold">Cast</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            @foreach ($cast as $actor)
+                <div class="mt-8">
+                    <a href="{{ route('actors.showActor', $actor['id']) }}">
+                        @if ($actor['profile_path'])
+                            <img src="https://image.tmdb.org/t/p/w500{{ $actor['profile_path'] }}"
+                                 alt="{{ $actor['name'] }}"
+                                 class="hover:opacity-75 transition ease-in-out duration-150">
+                        @else
+                            <img src="https://placehold.co/300x450?text={{ $actor['name'] }}"
+                                 class="hover:opacity-75 transition ease-in-out duration-150">
+                        @endif
 
-                        </a>
-                        <div class="mt-2">
-                            <a href="{{ route('actors.showActor', $actor['id']) }}"
-                               class="text-lg mt-2 hover:text-gray:300">{{ $actor['name'] }}</a>
-                            <div class="text-sm text-gray-400">
-                                {{ $actor['character'] }}
-                            </div>
+                    </a>
+                    <div class="mt-2">
+                        <a href="{{ route('actors.showActor', $actor['id']) }}"
+                           class="text-lg mt-2 hover:text-gray:300">{{ $actor['name'] }}</a>
+                        <div class="text-sm text-gray-400">
+                            {{ $actor['character'] }}
                         </div>
                     </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-
-    {{-- REVIEWS FOR THE MOVIE --}}
-<div class="container mx-auto px-4 py-16">
-    <h2 class="text-4xl font-semibold">Reviews</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-        {{-- @foreach ($reviews as $review) --}}
-        <div class="mt-8">
-            <a href="">
-                <img src="" alt="" class="w-full h-auto">
-            </a>
-            <div class="mt-2">
-                <a href="" class="text-lg mt-2 hover:text-gray:300"></a>
-                <div class="text-sm text-gray-400">
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis beatae voluptates iste minus dignissimos, eveniet alias molestiae veritatis dolor tempora esse inventore blanditiis commodi at quae numquam quod culpa itaque.</span>
                 </div>
-            </div>
+            @endforeach
         </div>
-        {{-- @endforeach --}}
     </div>
-</div>
-</div>
-
 
     {{-- MODAL FOR THE REVIEW --}}
     <div id="modalReview" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900/50">
