@@ -10,13 +10,16 @@
     {{-- fontawesome --}}
     <script src="https://kit.fontawesome.com/5f361d4fee.js" crossorigin="anonymous"></script>
 
+    {{-- https://infinite-scroll.com/ --}}
+    <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
+
     @vite(['resources/js/script.js', 'resources/js/trailerModal.js', 'resources/js/buttons.js', 'resources/js/readMore.js', 'resources/css/app.css',  'resources/css/style.css'])
 
     <title>@yield('title', 'PelisDB')</title>
 </head>
 
 <body class="font-sans">
-<nav class="border-b border-gray-500 font-semibold">
+<nav class="border-b border-gray-500 font-semibold text-lg">
     <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between py-6">
         <ul class="flex flex-col md:flex-row items-center">
             <li>
@@ -81,13 +84,10 @@
 </div>
 
 <footer class="border-t border-t-gray-500">
-    <div class="container mx-auto text-sm font-bold px-4 py-6">
+    <div class="container mx-auto text-lg font-bold px-4 py-6">
         <ul class="flex flex-col md:flex-row items-center">
             <li class="md:ml-6 mt-3 md:mt-0">
                 <a href="{{ route('about') }}" class="hover:text-gray-300">About</a>
-            </li>
-            <li class="md:ml-6 mt-3 md:mt-0">
-                <a href="" class="hover:text-gray-300">Contact</a>
             </li>
         </ul>
     </div>
@@ -98,6 +98,7 @@
     </div>
 </footer>
 
+@yield('scripts')
 </body>
 
 </html>

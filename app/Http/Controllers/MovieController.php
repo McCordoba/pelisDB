@@ -2,27 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
+
 
 class MovieController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @throws ConnectionException
      */
-    public function index()
+    public function index(Request $request)
     {
-        $popularMovies = Http::get('https://api.themoviedb.org/3/movie/popular?api_key=' . config('services.tmdb.token'))
-            ->json()['results'];
+        $page = $request->input('page', 1); // Get the current page or default to 1
+        abort_if($page > 500, 204);
+
+        $response = Http::get('https://api.themoviedb.org/3/movie/popular', [
+            'api_key' => config('services.tmdb.token'),
+            'page' => $page
+        ])->json();
+
+        // $response = Http::get('https://api.themoviedb.org/3/movie/popular?api_key=' . config('services.tmdb.token'). '&page=' . $page)
+        //     ->json();
+
+        $popularMovies = $response['results'];
 
         $genres = Http::get('https://api.themoviedb.org/3/genre/movie/list?api_key=' . config('services.tmdb.token'))
             ->json()['genres'];
-
-        // dump($popularMovies);
-        // dump($genres);
 
         // Map genre IDs to their names for easier lookup
         $genreMap = collect($genres)->mapWithKeys(function ($genre) {
@@ -39,6 +45,8 @@ class MovieController extends Controller
         return view('index', [
             'popularMovies' => $popularMovies,
             'genres' => $genres,
+            'currentPage' => $page,
+            'totalPages' => $response['total_pages']
         ]);
     }
 

@@ -16,11 +16,13 @@ use App\Http\Controllers\ReviewController;
 
 // Routes for the movies
 Route::get('/', [MovieController::class, 'index'])->name('index'); // This is the main page of the app
+Route::get('/popular-movies{page}', [MovieController::class, 'index']); // Handles pagination
 Route::get('/movies/{id}', [MovieController::class, 'show'])->name('movieDetails.index');
 Route::get('/movies/{id}/videos', [MovieController::class, 'fetchVideos'])->name('movies.videos');
 
 // Routes for the actors
 Route::get('actors', [ActorController::class, 'index'])->name('actors.index');
+Route::get('/actors{page}', [ActorController::class, 'index']); // Handle pagination
 Route::get('/actors/{id}', [ActorController::class, 'show'])->name('actors.showActor');
 
 // Routes for login and register

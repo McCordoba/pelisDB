@@ -94,3 +94,7 @@ a:hover {
 #modalReview {
   display: none;
 }
+
+.no-more {
+  display: none;
+}

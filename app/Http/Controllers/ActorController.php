@@ -10,10 +10,21 @@ class ActorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Fetch popular actors known for movies
-        $actorsData = Http::get('https://api.themoviedb.org/3/person/popular?api_key=' . config('services.tmdb.token'))->json()['results'];
+        $page = $request->input('page', 1); // Get the current page or default to 1
+        abort_if($page > 500, 204);
+
+        // Fetch popular actors
+        $response = Http::get('https://api.themoviedb.org/3/person/popular', [
+            'api_key' => config('services.tmdb.token'),
+            'page' => $page,
+            'filter' => $request->input('filter')
+        ])->json();
+
+        $actorsData = $response['results'];
+
+        // dump($actorsData);
 
         // Filter out actors known for TV shows
         $filteredActors = collect($actorsData)->map(function ($actor) {
@@ -27,10 +38,12 @@ class ActorController extends Controller
 
         // Pass the filtered actors data to the view
         return view('actors.index', [
+            'actorsData' => $actorsData,
             'popularActors' => $filteredActors,
+            'currentPage' => $page,
+            'totalPages' => $response['total_pages']
         ]);
     }
-
 
     /**
      * Show the form for creating a new resource.
