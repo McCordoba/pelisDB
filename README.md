@@ -1,6 +1,6 @@
 # PelisDB
 
-<p align="center"><a ><img src="public/img/PelisDB_logo_white.png" width="400" alt="PelisBD Logo"></a></p>
+<p align="center"><a target="_blank"><img src="public/img/PelisDB_logo_white.png" width="400" alt="PelisBD Logo"></a></p>
 
 # Definición del proyecto
 
@@ -53,11 +53,11 @@ Habrá 5 tablas en la base de datos, que son:
 
 # Diagrama E/R de la base de datos
 
-<p align="center"><a><img src="public/img/Esquema entidad-relación.drawio.png" alt="diagrama_ER"></a></p>
+<p align="center"><a target="_blank"><img src="public/img/Esquema entidad-relación.drawio.png" alt="diagrama_ER"></a></p>
 
 # Diseño físico de la base de datos
 
-<p align="center"><a><img src="public/img/Diseño físico.png" alt="Diseño físico"></a></p>
+<p align="center"><a target="_blank"><img src="public/img/Diseño físico.png" alt="Diseño físico"></a></p>
 
 # Funcionalidades
 
