@@ -14,7 +14,15 @@ class LikedMovieController extends Controller
      */
     public function index()
     {
+        // Get the ID of the user currently logged in
+        $userId = Auth::id();
 
+        // Retrieve all liked movies by the user
+        $likedMovies = LikedMovie::where('user_id', $userId)->get();
+
+        return view('likedMovies.index', [
+            'likedMovies' => $likedMovies
+        ]);
     }
 
     /**

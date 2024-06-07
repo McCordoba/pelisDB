@@ -48,18 +48,22 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     // Routes for the watched movies
+    Route::get('/watched-movies', [WatchedMovieController::class, 'index'])->name('watchedMovies.index');
     Route::post('/watched-movies', [WatchedMovieController::class, 'store']);
     Route::delete('/watched-movies/{id}', [WatchedMovieController::class, 'destroy']);
 
     // Routes for the liked movies
+    Route::get('/liked-movies', [LikedMovieController::class, 'index'])->name('likedMovies.index');
     Route::post('/liked-movies', [LikedMovieController::class, 'store']);
     Route::delete('/liked-movies/{id}', [LikedMovieController::class, 'destroy']);
 
     // Routes for the movies on the watchlist
+    Route::get('/watchlist', [WatchListController::class, 'index'])->name('watchlist.index');
     Route::post('/watchlist', [WatchListController::class, 'store']);
     Route::delete('/watchlist/{id}', [WatchListController::class, 'destroy']);
 
     // Routes for the reviews
+    Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
     Route::post('/review', [ReviewController::class, 'store']);
     Route::delete('/review/{id}', [ReviewController::class, 'destroy']);
     Route::get('/review/{id}', [ReviewController::class, 'show']);

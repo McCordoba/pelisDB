@@ -14,7 +14,14 @@ class WatchedMovieController extends Controller
      */
     public function index()
     {
-        //
+        // Get the ID of the user currently logged in
+        $userId = Auth::id();
+
+        $watchedMovies = WatchedMovie::where('user_id', $userId)->get();
+
+        return view('watchedMovies.index', [
+            'watchedMovies' => $watchedMovies
+        ]);
     }
 
     /**

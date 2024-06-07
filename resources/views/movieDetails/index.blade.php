@@ -56,11 +56,13 @@
                 <div class="mt-12 flex">
                     {{-- Crew List --}}
                     <div>
-                        <h4 class="text-white font-semibold">Crew</h4>
+                        <h2 class="text-lg text-white font-semibold">Crew</h2>
                         <div class="flex mt-4">
                             <ul>
                                 @foreach ($crew as $member)
-                                    <li>{{ $member['name'] }} -
+                                    <li>
+                                        <a href="{{ route('actors.showActor', $member['id']) }}"
+                                        class="hover:text-gray:300">{{ $member['name'] }}</a> -
                                         <span class="text-sm text-gray-400">{{ $member['job'] }}</span>
                                     </li>
                                 @endforeach
@@ -137,32 +139,64 @@
         </div>
     </div>
 
-    <div class="container mx-auto px-4 py-8">
-        <h2 class="text-4xl font-semibold">Cast</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-            @foreach ($cast as $actor)
-                <div class="mt-8">
-                    <a href="{{ route('actors.showActor', $actor['id']) }}">
-                        @if ($actor['profile_path'])
-                            <img src="https://image.tmdb.org/t/p/w500{{ $actor['profile_path'] }}"
-                                 alt="{{ $actor['name'] }}"
-                                 class="hover:opacity-75 transition ease-in-out duration-150">
-                        @else
-                            <img src="https://placehold.co/300x450?text={{ $actor['name'] }}"
-                                 class="hover:opacity-75 transition ease-in-out duration-150">
-                        @endif
+    <div class="movie-info-cast border-b border-gray-500">
+        <div class="container mx-auto px-4 py-8">
+            <h2 class="text-4xl font-semibold">Cast</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                @foreach ($cast as $actor)
+                    <div class="mt-8">
+                        <a href="{{ route('actors.showActor', $actor['id']) }}">
+                            @if ($actor['profile_path'])
+                                <img src="https://image.tmdb.org/t/p/w500{{ $actor['profile_path'] }}"
+                                     alt="{{ $actor['name'] }}"
+                                     class="hover:opacity-75 transition ease-in-out duration-150">
+                            @else
+                                <img src="https://placehold.co/300x450?text={{ $actor['name'] }}"
+                                     class="hover:opacity-75 transition ease-in-out duration-150">
+                            @endif
 
-                    </a>
-                    <div class="mt-2">
-                        <a href="{{ route('actors.showActor', $actor['id']) }}"
-                           class="text-lg mt-2 hover:text-gray:300">{{ $actor['name'] }}</a>
-                        <div class="text-sm text-gray-400">
-                            {{ $actor['character'] }}
+                        </a>
+                        <div class="mt-2">
+                            <a href="{{ route('actors.showActor', $actor['id']) }}"
+                               class="text-lg mt-2 hover:text-gray:300">{{ $actor['name'] }}</a>
+                            <div class="text-sm text-gray-400">
+                                {{ $actor['character'] }}
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8">
+        <h3 class="text-2xl font-semibold">Reviews</h3>
+        @if ($reviews->isEmpty())
+            <p class="text-gray-400">No reviews yet. Be the first to review!</p>
+        @else
+            <div class="py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                @foreach ($reviews as $review)
+                    <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+                        <div class="mb-2">
+                            <h3 class="text-lg font-bold">{{ $review->user->name }}</h3>
+                            <span class="text-gray-500">{{ $review->created_at->format('M d, Y') }}</span>
+                        </div>
+                        <div class="text-gray-300">
+                            @if ($review->score )
+                                <div class="rating mt-2">
+                                    <p class="font-semibold"><i class="fa-solid fa-star" style="color: #00e054;"></i>
+                                        {{ intval( $review->score * 10) .'%' }}
+                                    </p>
+                                </div>
+                            @endif
+                            <p class="text-gray-400 overflow-hidden review-text"
+                               style="max-height: 4.5rem; line-height: 1.5rem;">{{ $review->review }}</p>
+                            <a class="mt-2 text-toggle">Read more <i class="fa-solid fa-arrow-right" ;"></i></a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
     </div>
 
     {{-- MODAL FOR THE REVIEW --}}
@@ -224,8 +258,7 @@
             </div>
             <div class="modal-body px-8 py-8">
                 <div class="responsive-container overflow-hidden relative" style="padding-top: 56.25%">
-                    <iframe id="iframe" class="responsive-iframe absolute top-0 left-0 w-full h-full" style="border:0;"
-                            encrypted-media allowfullscreen></iframe>
+                    <iframe id="iframe" class="responsive-iframe absolute top-0 left-0 w-full h-full" style="border:0;" encrypted-media allowfullscreen></iframe>
                 </div>
             </div>
         </div>

@@ -2,11 +2,10 @@
 
 @section('content')
     <div class="container mx-auto px-4 py-8">
-
-        <h3 class="text-2xl font-semibold">Movies Liked by {{ $user->name }}</h3>
+        <h3 class="text-2xl font-semibold">Watchlist of {{ $user->name }}</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
 
-            @foreach($likedMovies as $movie)
+            @foreach($listedMovies as $movie)
                 <div class="mt-8">
                     <a href="{{ route('movieDetails.index', $movie->movie_id) }}">
                         <img src="https://image.tmdb.org/t/p/w300{{ $movie->poster_path }}"

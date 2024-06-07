@@ -13,39 +13,36 @@
                 @endif
 
                 <div class="mt-4">
-                    <button
-                        class="flex items-center rounded font-semibold w-48 h-12 justify-center transition ease-in-out duration-150">
-                <span class="ml-2">
-                    <a class="movieLog"
-                       href="{{ route('users.edit', auth()->user()->id) }}">Edit user data</a>
-                </span>
+                    <button class="flex items-center rounded font-semibold w-48 h-12 justify-center transition ease-in-out duration-150">
+                        <a class="movieLog ml-2" href="{{ route('users.edit', auth()->user()->id) }}">Edit user data</a>
+                    </button>
                 </div>
             </div>
 
             <div class="md:ml-24">
                 <h2 class="text-4xl mt-4 md:mt-0 font-semibold" style="color: #00e054;">User Details</h2>
                 <div class="py-2">
-                    <label class="text-gray-700 font-bold">Name:</label>
+                    <span class="text-gray-700 font-bold">Name:</span>
                     <span class="text-gray-300">{{ $user->name }}</span>
                 </div>
                 <div class="py-2">
-                    <label class="text-gray-700 font-bold">Email:</label>
+                    <span class="text-gray-700 font-bold">Email:</span>
                     <span class="text-gray-300">{{ $user->email }}</span>
                 </div>
                 <div class="py-2">
-                    <label class="text-gray-700 font-bold">Films:</label>
+                    <a class="text-gray-700 font-bold" href="{{ route('watchedMovies.index')}}">Films:</a>
                     <span class="text-gray-300">{{ $totalLikedMovies }}</span>
                 </div>
                 <div class="py-2">
-                    <label class="text-gray-700 font-bold">Watchlist:</label>
+                    <a class="text-gray-700 font-bold" href="{{ route('watchlist.index')}}">Watchlist:</a>
                     <span class="text-gray-300">{{ $totalListedMovies }}</span>
                 </div>
                 <div class="py-2">
-                    <label class="text-gray-700 font-bold">Likes:</label>
+                    <a class="text-gray-700 font-bold" href="{{ route('likedMovies.index')}}">Likes:</a>
                     <span class="text-gray-300">{{ $totalLikedMovies }}</span>
                 </div>
                 <div class="py-2">
-                    <label class="text-gray-700 font-bold">Reviews:</label>
+                    <a class="text-gray-700 font-bold" href="{{ route('reviews.index')}}">Reviews:</a>
                     <span class="text-gray-300">{{ $totalRevies }}</span>
                 </div>
             </div>
@@ -121,27 +118,36 @@
 
     <div class="container mx-auto px-4 py-8">
         <h3 class="text-2xl font-semibold">Reviews</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            @foreach($reviews as $movie)
-                <div class="mt-2 p-4">
-                    <div class="flex items-center">
-                        <a href="{{ route('movieDetails.index', $movie->movie_id) }}"
-                           class="text-lg font-semibold hover:text-gray-300">{{ $movie->title }}
-                            ({{ date('Y', strtotime($movie->release_date)) }})</a>
+        @if ($reviews->isEmpty())
+            <p class="text-gray-400">No reviews yet.</p>
+        @else
+            <div class="py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                @foreach ($reviews as $review)
+                    <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+                        <div class="mb-2">
+                            <p><a href="{{ route('movieDetails.index', $review->movie_id) }}"
+                                  class="text-lg font-semibold hover:text-gray-300">{{ $review->title }}
+                                    ({{ date('Y', strtotime($review->release_date)) }})</a></p>
+                            <span class="text-gray-500">{{ $review->created_at->format('M d, Y') }}</span>
+                        </div>
+                        <div class="text-gray-300">
+                            @if ($review->score )
+                                <div class="rating mt-2">
+                                    <p class="font-semibold">
+                                        <i class="fa-solid fa-star"
+                                           style="color: #00e054;"></i> {{ intval( $review->score * 10) .'%' }}
+                                    </p>
+                                </div>
+                            @endif
+                            <p class="text-gray-400 overflow-hidden review-text"
+                               style="max-height: 4.5rem; line-height: 1.5rem;">{{ $review->review }}</p>
+                            <a class="mt-2 text-toggle">Read more <i class="fa-solid fa-arrow-right" ;"></i></a>
+                        </div>
                     </div>
-                    <div class="mt-2">
-                        @if ($movie->score )
-                            <p class="font-semibold"><i class="fa-solid fa-star"
-                                                        style="color: #00e054;"></i> {{ intval( $movie->score * 10) .'%' }}
-                            </p>
-                        @endif
-                        <p class="text-gray-400 overflow-hidden review-text"
-                           style="max-height: 4.5rem; line-height: 1.5rem;">{{ $movie->review }}</p>
-                        <a class="mt-2 text-toggle">Read more <i class="fa-solid fa-arrow-right" ;"></i></a>
-                    </div>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
+        @endif
     </div>
 
 @endsection
+

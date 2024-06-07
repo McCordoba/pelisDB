@@ -19,16 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        // Displays all the users
-        // $users = User::all();
-
-        // Displays a certain number of users per page
-        // paginate() default value is 15
-        $users = User::paginate(20);
-
-        return view('users.userData', [
-            'users' => $users
-        ]);
+        //
     }
 
     /**
@@ -55,28 +46,20 @@ class UserController extends Controller
         // Fetch the user or fail if not found
         $user = User::findOrFail($id);
 
-        // Fetch the liked movies of the user
+        // Fetch liked movies of the user
         $likedMovies = LikedMovie::where('user_id', $user->id)->take(10)->get();
-
-        // Get the total number of liked movies of the user
         $totalLikedMovies = LikedMovie::where('user_id', $user->id)->count();
 
         // Fetch watched movies of the user
         $watchedMovies = WatchedMovie::where('user_id', $user->id)->take(5)->get();
-
-        // Get the total number of watched movies of the user
         $totalWatchedMovies = WatchedMovie::where('user_id', $user->id)->count();
 
-        // Fetch the listed movies of the user
+        // Fetch listed movies of the user
         $listedMovies = Watchlist::where('user_id', $user->id)->take(5)->get();
-
-        // Get the total number of listed movies of the user
         $totalListedMovies = Watchlist::where('user_id', $user->id)->count();
 
-        // Fetch the reviews movies of the user
-        $reviews = Review::where('user_id', $user->id)->get();
-
-        // Get the total number of reviews movies of the user
+        // Fetch reviews movies of the user
+        $reviews = Review::where('user_id', $user->id)->take(4)->get();
         $totalRevies = Review::where('user_id', $user->id)->count();
 
         return view('users.show', [

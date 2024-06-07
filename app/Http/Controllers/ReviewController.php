@@ -15,7 +15,14 @@ class ReviewController extends Controller
     // Show all reviews for a specific movie
     public function index()
     {
-        //
+        // Get the ID of the user currently logged in
+        $userId = Auth::id();
+
+        $reviews = Review::where('user_id', $userId)->get();
+
+        return view('reviews.index', [
+            'reviews' => $reviews
+        ]);
     }
 
     /**
@@ -59,7 +66,6 @@ class ReviewController extends Controller
             'message' => 'Review submitted successfully'
         ], 201);
     }
-
 
     /**
      * Display the specified resource.

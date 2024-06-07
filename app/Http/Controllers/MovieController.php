@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Review;
 
 
 class MovieController extends Controller
@@ -21,9 +22,6 @@ class MovieController extends Controller
             'api_key' => config('services.tmdb.token'),
             'page' => $page
         ])->json();
-
-        // $response = Http::get('https://api.themoviedb.org/3/movie/popular?api_key=' . config('services.tmdb.token'). '&page=' . $page)
-        //     ->json();
 
         $popularMovies = $response['results'];
 
@@ -101,23 +99,21 @@ class MovieController extends Controller
         $movieDetails['genres'] = $genres;
         $movieDetails['directors'] = $directors;
 
-        // Check if the movie is liked by the current user
+        // Check if the movie is liked, watched, listed, and reviewed by the current user
         $movieDetails['liked'] = Auth::check() ? Auth::user()->likedMovies()->where('movie_id', $id)->exists() : false;
-
-        // Check if the movie is whatched by the current user
         $movieDetails['whatched'] = Auth::check() ? Auth::user()->watchedMovies()->where('movie_id', $id)->exists() : false;
-
-        // Check if the movie is on a whatchlist by the current user
         $movieDetails['listed'] = Auth::check() ? Auth::user()->watchlist()->where('movie_id', $id)->exists() : false;
-
-        // Check if the movie has been reviewed by the current user
         $movieDetails['reviewed'] = Auth::check() ? Auth::user()->reviews()->where('movie_id', $id)->exists() : false;
+
+        // Fetch reviews for the movie
+        $reviews = Review::where('movie_id', $id)->get();
 
         // Pass the movie details to the view
         return view('movieDetails.index', [
             'movieDetails' => $movieDetails,
             'crew' => $crew,
-            'cast' => $cast
+            'cast' => $cast,
+            'reviews' => $reviews
         ]);
     }
 

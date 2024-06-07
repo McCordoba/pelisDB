@@ -15,7 +15,14 @@ class WatchListController extends Controller
      */
     public function index()
     {
-        //
+        // Get the ID of the user currently logged in
+        $userId = Auth::id();
+
+        $watchlist = Watchlist::where('user_id', $userId)->get();
+
+        return view('watchlist.index', [
+            'watchlist' => $watchlist
+        ]);
     }
 
     /**

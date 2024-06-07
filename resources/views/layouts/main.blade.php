@@ -13,7 +13,7 @@
     {{-- https://infinite-scroll.com/ --}}
     <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
 
-    @vite(['resources/js/script.js', 'resources/js/trailerModal.js', 'resources/js/buttons.js', 'resources/js/readMore.js', 'resources/css/app.css',  'resources/css/style.css'])
+    @vite(['resources/js/trailerModal.js', 'resources/js/buttons.js', 'resources/js/readMore.js', 'resources/css/app.css',  'resources/css/style.css'])
 
     <title>@yield('title', 'PelisDB')</title>
 </head>
@@ -58,7 +58,7 @@
                     <a href="{{ route('users.show', auth()->user()->id) }}">
                         @if ($user->image)
                             <img src="{{ asset('storage/' . $user->image) }}" alt="avatar"
-                                 class="rounded-full w-12 h-12">
+                                 class="rounded-full w-16 h-16">
                         @else
                             <i class="fa-regular fa-circle-user fa-2xl" style="color: #ffffff;"></i>
                         @endif
@@ -68,12 +68,12 @@
                 {{-- LOG OUT --}}
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit"
-                            class="logOut ml-4 flex items-center rounded w-20 h-12 justify-center transition ease-in-out duration-150">
+                    <button type="submit" class="logOut ml-4 flex items-center rounded w-24 h-12 justify-center transition ease-in-out duration-150 p-2 space-x-2">
                         <i class="fa-solid fa-power-off"></i>
-                        <span class="ml-2">Logout</span>
+                        <span>Logout</span>
                     </button>
                 </form>
+
             @endauth
         </div>
     </div>

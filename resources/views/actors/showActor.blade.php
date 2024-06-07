@@ -10,7 +10,7 @@
                 @else
                     <img
                         src="https://placehold.co/300x450?text=We don't have a portrait of\n{{ $actorDetails['name'] }}"
-                        alt="{{ $actorDetails['name'] }}" class="w-64 lg:w-96  rounded-sm">
+                        alt="{{ $actorDetails['name'] }}" class="w-64 lg:w-96 rounded-sm">
                 @endif
 
                 <ul class="flex items-center text-gray-400 mt-4 social-media">
@@ -40,7 +40,7 @@
 
                     @if (isset($social['tiktok_id']))
                         <li class="ml-6">
-                            <a href="https://www.tiktok.com/{{ $social['tiktok_id'] }}" title="Twitter">
+                            <a href="https://www.tiktok.com/{{ $social['tiktok_id'] }}" title="Tiktok">
                                 <i class="fa-brands fa-tiktok fa-2xl"></i>
                             </a>
                         </li>
@@ -59,11 +59,13 @@
 
             <div class="md:ml-24">
                 <h2 class="text-4xl mt-4 md:mt-0 font-semibold">{{ $actorDetails['name'] }}</h2>
-                <div class="flex flex-wrap items-center text-gray-400 text-sm  mt-1">
-                    @if (!$actorDetails['deathday'])
+                <div class="flex flex-wrap items-center text-gray-400 text-sm mt-1">
+                    @if (!$actorDetails['deathday'] && $actorDetails['birthday'])
+                        {{-- If the actor is alive and birthday exists --}}
                         <i class="fa-solid fa-cake-candles"></i>
                         <span class="ml-2"> {{ $actorDetails['birthday'] }} ({{ $actorDetails['age'] }} years old) in {{ $actorDetails['place_of_birth'] }}</span>
-                    @else
+                    @elseif ($actorDetails['deathday'])
+                        {{-- If the actor is deceased --}}
                         <div>
                             <span> Born In {{ $actorDetails['birthday'] }} in {{ $actorDetails['place_of_birth'] }}</span>
                             <br>
@@ -74,14 +76,12 @@
 
                 <h3 class="text-white py-2 font-semibold">Biography</h3>
                 @if ($actorDetails['biography'])
-
                     <p class="text-gray-400 overflow-hidden actor-text"
                        style="max-height: 4.5rem; line-height: 1.5rem;">{{ $actorDetails['biography'] }}</p>
                     <a class="mt-2 text-toggle">Read more <i class="fa-solid fa-arrow-right" ;"></i></a>
                 @else
                     <p class="text-gray-300">We don't have a biography for {{ $actorDetails['name'] }}.</p>
                 @endif
-
             </div>
         </div>
     </div>
