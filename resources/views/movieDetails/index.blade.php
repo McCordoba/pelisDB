@@ -154,7 +154,6 @@
                                 <img src="https://placehold.co/300x450?text={{ $actor['name'] }}"
                                      class="hover:opacity-75 transition ease-in-out duration-150">
                             @endif
-
                         </a>
                         <div class="mt-2">
                             <a href="{{ route('actors.showActor', $actor['id']) }}"
@@ -170,9 +169,9 @@
     </div>
 
     <div class="container mx-auto px-4 py-8">
-        <h3 class="text-2xl font-semibold">Reviews</h3>
+        <h2 class="text-4xl font-semibold">Reviews</h2>
         @if ($reviews->isEmpty())
-            <p class="text-gray-400">No reviews yet. Be the first to review!</p>
+            <p class="text-gray-400 text-lg pt-2">No reviews yet. Be the first to review this movie!</p>
         @else
             <div class="py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 @foreach ($reviews as $review)
@@ -218,8 +217,6 @@
                             <textarea name="review" id="review" cols="30" rows="5" required
                                       class="mt-1 block w-full rounded-md px-4 py-1 bg-gray-800 shadow-sm focus:border-[var(--two)] focus:ring focus:outline-none focus:ring-[var(--two)] focus:ring-opacity-50"></textarea>
                         </div>
-
-
                         <div class="w-full mb-4">
                             <label for="score" class="block text-gray-300">Rating (Optional)</label>
                             <span class="text-green-500 text-sm">Rate 1 to 10</span>
@@ -243,6 +240,7 @@
                             </button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

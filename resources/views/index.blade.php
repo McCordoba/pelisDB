@@ -48,13 +48,12 @@
             history: false,
         });
 
-        // Event listener to log when new content is appended
         infScroll.on("append", function (response, path, items) {
-            loadedPages++; // Increment the loaded pages count
+            loadedPages++; 
             console.log(`Content appended from ${path}`);
 
-            // Check if loaded pages exceed 10
-            if (loadedPages >= 4) {
+            // Check if loaded pages exceed 5
+            if (loadedPages >= 5) {
                 // Disable loading more content, stops the infinite scroll and cleans up any event listeners and resources associated with it
                 infScroll.destroy();
                 // Show message indicating no more movies are loading

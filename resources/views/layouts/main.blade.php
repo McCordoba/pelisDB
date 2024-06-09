@@ -84,7 +84,7 @@
 </div>
 
 <footer class="border-t border-t-gray-500">
-    <div class="container mx-auto text-lg font-bold px-4 py-6">
+    <div class="container mx-auto text-lg font-bold px-4 py-4">
         <ul class="flex flex-col md:flex-row items-center">
             <li class="md:ml-6 mt-3 md:mt-0">
                 <a href="{{ route('about') }}" class="hover:text-gray-300">About</a>
@@ -92,9 +92,12 @@
         </ul>
     </div>
 
-    <div class="container mx-auto text-sm px-4 py-6">
-        Powered by <a href="https://www.themoviedb.org/documentation/api" class="underline">TMDb
-            API</a>
+    <div class="container mx-auto text-sm px-2 py-2">
+        <span>Powered by <a href="https://www.themoviedb.org/documentation/api" class="underline">TMDb API</a></span>
+    </div>
+
+    <div class="container mx-auto px-2 py-2 text-sm font-thin">
+        <p>&copy; 2024 PelisDB by María del Carmen Córdoba Gutiérrez</p>
     </div>
 </footer>
 

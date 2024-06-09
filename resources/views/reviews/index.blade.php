@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mx-auto px-4 py-8">
-        <h3 class="text-2xl font-semibold">Reviews</h3>
+        <h3 class="text-2xl font-semibold">Reviews by {{ $user->name }}</h3>
         @if ($reviews->isEmpty())
             <p class="text-gray-400">No reviews yet.</p>
         @else

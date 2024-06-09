@@ -41,7 +41,7 @@
     let elem = document.querySelector(".grid");
     let infScroll = new InfiniteScroll(elem, {
         path: function () {
-            let nextPage = this.pageIndex + 1; // Increment the loaded pages count
+            let nextPage = this.pageIndex + 1;
             let filter = '{{ request()->input("filter") }}'; // Get the filter value from the current request
             return `{{ route('actors.index') }}?page=${nextPage}&filter=${filter}`;
         },
@@ -50,13 +50,12 @@
         history: false,
     });
 
-    // Event listener to log when new content is appended
     infScroll.on("append", function (response, path, items) {
-        loadedPages++; // Increment the loaded pages count
+        loadedPages++;
         console.log(`Content appended from ${path} ${loadedPages} `);
 
-        // Check if loaded pages exceed 10
-        if (loadedPages >= 4) {
+        // Check if loaded pages exceed 5
+        if (loadedPages >= 5) {
             // Disable loading more content, stops the infinite scroll and cleans up any event listeners and resources associated with it
             infScroll.destroy();
             // Show message indicating no more movies are loading
