@@ -22,7 +22,7 @@ Route::get('/movies/{id}/videos', [MovieController::class, 'fetchVideos'])->name
 
 // Routes for the actors
 Route::get('actors', [ActorController::class, 'index'])->name('actors.index');
-Route::get('/actors{page}', [ActorController::class, 'index']); // Handle pagination
+Route::get('/actors{page}', [ActorController::class, 'index']); // Handles pagination
 Route::get('/actors/{id}', [ActorController::class, 'show'])->name('actors.showActor');
 
 // Routes for login and register

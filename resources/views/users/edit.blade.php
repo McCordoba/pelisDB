@@ -14,7 +14,7 @@
                 @csrf
                 <div class="mb-4">
                     <label for="name" class="block text-gray-300">Name</label>
-                    <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required
+                    <input type="text" id="name" name="name" value="https://laravel.com/docs/11.x/helpers" required
                            class="mt-1 block w-full rounded-md px-4 py-1 bg-gray-800 shadow-sm focus:border-[var(--two)] focus:ring focus:outline-none focus:ring-[var(--two)] focus:ring-opacity-50">
                     @error('name')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
